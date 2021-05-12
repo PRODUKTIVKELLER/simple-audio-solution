@@ -7,12 +7,12 @@ namespace Sound.Access
     public class SoundAccess : MonoBehaviour
     {
         private Dictionary<string, SoundEvent> _soundEvents;
-
-        private void Awake()
+        
+        private void Initialize()
         {
             LoadSoundEvents();
         }
-
+        
         private void LoadSoundEvents()
         {
             _soundEvents = new Dictionary<string, SoundEvent>();
@@ -23,7 +23,7 @@ namespace Sound.Access
         private void LoadSoundEventsRecursively(Transform current, string path)
         {
             bool isRoot = current.GetComponent<SoundAccess>() != null;
-            
+
             if (!isRoot)
             {
                 path += "/" + current.name;
@@ -50,7 +50,35 @@ namespace Sound.Access
                 Debug.LogError("SoundEvent ID '" + id + "' not found.");
             }
 
-            return _soundEvents[id];
+            SoundEvent soundEvent = _soundEvents[id];
+            soundEvent.key = id;
+
+            return soundEvent;
         }
+        
+        
+        #region Singleton
+
+        private static SoundAccess _instance;
+
+        private void Awake()
+        {
+            if (_instance != null && _instance != this)
+            {
+                Destroy(gameObject);
+            }
+            else if (_instance == null)
+            {
+                _instance = this;
+                Initialize();
+            }
+        }
+        
+        public static SoundAccess GetInstance()
+        {
+            return _instance;
+        }
+        
+        #endregion
     }
 }

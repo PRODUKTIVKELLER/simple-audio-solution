@@ -6,8 +6,6 @@ namespace Sound.Emitter
 {
     public class SoundEmitter : MonoBehaviour
     {
-        public SoundAccess soundAccess;
-
         public string key;
 
         private void Start()
@@ -17,14 +15,9 @@ namespace Sound.Emitter
 
         public void Play()
         {
-            SoundEvent soundEvent = soundAccess.RetrieveSoundEvent(key);
-        
-            AudioSource audioSource = gameObject.AddComponent<AudioSource>();
-            audioSource.clip = soundEvent.RetrieveAudioClip();
-            audioSource.Play();
-
-            // TODO
-            // audioSource.pitch = soundEvent.DetermineRandomPitch();
+            SoundEvent soundEvent = SoundAccess.GetInstance().RetrieveSoundEvent(key);
+            
+            SoundEventInstanceManager.GetInstance().CreateSoundEventInstance(gameObject, soundEvent);
         }
     }
 }
