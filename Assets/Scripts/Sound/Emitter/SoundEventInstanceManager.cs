@@ -8,7 +8,7 @@ namespace Sound.Emitter
     {
         private readonly Dictionary<string, List<SoundEventInstance>> _soundEventInstances;
 
-        public void CreateSoundEventInstance(GameObject gameObject, SoundEvent soundEvent)
+        public SoundEventInstance CreateSoundEventInstance(GameObject gameObject, SoundEvent soundEvent)
         {
             SoundEventInstance soundEventInstance = gameObject.AddComponent<SoundEventInstance>();
             soundEventInstance.Initialize(soundEvent);
@@ -19,6 +19,7 @@ namespace Sound.Emitter
             }
 
             _soundEventInstances[soundEvent.key].Add(soundEventInstance);
+            return soundEventInstance;
         }
 
         public void Unregister(SoundEventInstance soundEventInstance)

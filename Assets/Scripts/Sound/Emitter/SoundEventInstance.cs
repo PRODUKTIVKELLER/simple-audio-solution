@@ -14,9 +14,21 @@ namespace Sound.Emitter
 
             _audioSource = gameObject.AddComponent<AudioSource>();
             _audioSource.clip = soundEvent.RetrieveAudioClip();
-            _audioSource.Play();
 
-            DestroyInstanceAfter(_audioSource.clip.length);
+            if (_soundEvent.pitchMin != 1 || _soundEvent.pitchMax != 1)
+            {
+                _audioSource.pitch = Random.Range(_soundEvent.pitchMin, _soundEvent.pitchMax);
+            }
+
+            _audioSource.Play();
+        }
+
+        private void Update()
+        {
+            if (!_audioSource.isPlaying)
+            {
+                Destroy(this);
+            }
         }
 
         public SoundEvent GetSoundEvent()
@@ -24,15 +36,15 @@ namespace Sound.Emitter
             return _soundEvent;
         }
 
-        private void DestroyInstanceAfter(float clipLength)
-        {
-            Destroy(this, clipLength);
-        }
-
         private void OnDestroy()
         {
             SoundEventInstanceManager.GetInstance().Unregister(this);
             Destroy(_audioSource);
+        }
+
+        public void Stop()
+        {
+            _audioSource.Stop();
         }
     }
 }

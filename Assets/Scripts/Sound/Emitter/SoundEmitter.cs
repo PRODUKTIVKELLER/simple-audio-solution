@@ -8,16 +8,28 @@ namespace Sound.Emitter
     {
         public string key;
 
-        private void Start()
-        {
-            Play();
-        }
+        private SoundEventInstance _soundEventInstance;
 
         public void Play()
         {
             SoundEvent soundEvent = SoundAccess.GetInstance().RetrieveSoundEvent(key);
+
+            if (_soundEventInstance)
+            {
+                _soundEventInstance.Stop();
+            }
+
+            _soundEventInstance = SoundEventInstanceManager.GetInstance().CreateSoundEventInstance(gameObject, soundEvent);
+        }
+
+        public void Stop()
+        {
+            if (!_soundEventInstance)
+            {
+                return;
+            }
             
-            SoundEventInstanceManager.GetInstance().CreateSoundEventInstance(gameObject, soundEvent);
+            _soundEventInstance.Stop();
         }
     }
 }
