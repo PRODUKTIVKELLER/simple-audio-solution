@@ -12,7 +12,12 @@ namespace Sound.Emitter
         {
             _soundEvent = soundEvent;
 
-            _audioSource = gameObject.AddComponent<AudioSource>();
+            // To catch creating multiple AudioSources, this is being checked here.
+            // When playing a looping sound, this Initialize() function is called more than once.
+            if (!_audioSource)
+            {
+                _audioSource = gameObject.AddComponent<AudioSource>();
+            }
             _audioSource.clip = soundEvent.RetrieveAudioClip();
 
             if (_soundEvent.pitchMin != 1 || _soundEvent.pitchMax != 1)
@@ -27,7 +32,14 @@ namespace Sound.Emitter
         {
             if (!_audioSource.isPlaying)
             {
-                Destroy(this);
+                if (!_soundEvent.isLooping)
+                {
+                    Destroy(this);
+                }
+                else
+                {
+                    Initialize(_soundEvent);
+                }
             }
         }
 
@@ -45,6 +57,10 @@ namespace Sound.Emitter
         public void Stop()
         {
             _audioSource.Stop();
+
+            // This might not be optimal, since when the sound should still fade out after being stopped,
+            // this SoundEventInstance should not be destroyed immediately
+            Destroy(this);
         }
     }
 }

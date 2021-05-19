@@ -13,7 +13,10 @@ namespace Sound.Event
         public float pitchMin = 1f;
 
         [Range(-3f, 3f)] public float pitchMax = 1f;
-        
+
+        [Header("Looping")]
+        public bool isLooping = false;
+
         public void Start()
         {
             if (audioClips.Count == 0)

@@ -28,6 +28,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1536513161}
+  - {fileID: 2517452707230969698}
   m_Father: {fileID: 2357923500017596019}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -115,6 +116,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 319eb551e869cab4c8ad78de5f906332, type: 3}
   pitchMin: 1
   pitchMax: 1
+  isLooping: 0
 --- !u!1 &1910404631
 GameObject:
   m_ObjectHideFlags: 0
@@ -163,6 +165,61 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 742920e16373df849bafd7214ca584c6, type: 3}
   pitchMin: 0.8
   pitchMax: 1.2
+  isLooping: 0
+--- !u!1 &1676092576498230486
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2517452707230969698}
+  - component: {fileID: 3743305191456315521}
+  m_Layer: 0
+  m_Name: Jumping Grunt Loop
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2517452707230969698
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1676092576498230486}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 104794798}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3743305191456315521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1676092576498230486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 174b7e2422daff24cbd94270afb152c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: 
+  audioClips:
+  - {fileID: 8300000, guid: a74aa12b5f4f2e541b3e69d4bca442a2, type: 3}
+  - {fileID: 8300000, guid: c57406341ed26b34eb53fa85de0a484d, type: 3}
+  - {fileID: 8300000, guid: 75d79378867ce2c47ba921c4636acc19, type: 3}
+  - {fileID: 8300000, guid: 20b985515b2f2f541875d37e798d1331, type: 3}
+  - {fileID: 8300000, guid: 72dfb79408a21594b986ac72eab0a6ae, type: 3}
+  - {fileID: 8300000, guid: 319eb551e869cab4c8ad78de5f906332, type: 3}
+  pitchMin: 1
+  pitchMax: 1
+  isLooping: 1
 --- !u!1 &2357923499994279551
 GameObject:
   m_ObjectHideFlags: 0
@@ -381,3 +438,4 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 3a1617094f14145479fd4b0e394449cc, type: 3}
   pitchMin: 1
   pitchMax: 1
+  isLooping: 0
