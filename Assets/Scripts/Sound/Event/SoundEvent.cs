@@ -3,11 +3,9 @@ using UnityEngine;
 
 namespace Sound.Event
 {
-    public class SoundEvent : MonoBehaviour
+    public abstract class SoundEvent : MonoBehaviour
     {
         [HideInInspector] public string key;
-
-        public List<AudioClip> audioClips;
 
         [Header("Random Pitch")] [Range(-3f, 3f)]
         public float pitchMin = 1f;
@@ -17,17 +15,6 @@ namespace Sound.Event
         [Header("Looping")]
         public bool isLooping = false;
 
-        public void Start()
-        {
-            if (audioClips.Count == 0)
-            {
-                Debug.LogError("'SoundEvent' [" + key + "] without audio clips is not allowed.");
-            }
-        }
-
-        public AudioClip RetrieveAudioClip()
-        {
-            return audioClips[Random.Range(0, audioClips.Count)];
-        }
+        public abstract AudioClip RetrieveAudioClip();
     }
 }
