@@ -7,10 +7,20 @@ namespace Sound.Event
     {
         [HideInInspector] public string key;
 
-        [Header("Random Pitch")] [Range(-3f, 3f)]
-        public float pitchMin = 1f;
+        [Header("Volume")]
+        [Range(0f, 1f)]
+        public float volume = 1f;
+        [Range(0f, 1f)]
+        public float randomizeVolume = 1f;
 
-        [Range(-3f, 3f)] public float pitchMax = 1f;
+
+        [Header("Pitch")]
+        [Range(-3f, 3f)]
+        public float pitch = 1f;
+
+        [Range(-3f, 3f)]
+        public float randomizePitch = 1f;
+
 
         [Header("Looping")]
         public bool isLooping = false;

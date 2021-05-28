@@ -20,16 +20,15 @@ namespace Sound.Emitter
             }
             _audioSource.clip = soundEvent.RetrieveAudioClip();
 
-            if (_soundEvent.pitchMin != 1 || _soundEvent.pitchMax != 1)
-            {
-                _audioSource.pitch = Random.Range(_soundEvent.pitchMin, _soundEvent.pitchMax);
-            }
+            SetAndRandomizePitch();
+            SetAndRandomizeVolume();
 
             _audioSource.Play();
         }
 
         private void Update()
         {
+
             if (!_audioSource.isPlaying)
             {
                 if (!_soundEvent.isLooping)
@@ -46,6 +45,32 @@ namespace Sound.Emitter
         public SoundEvent GetSoundEvent()
         {
             return _soundEvent;
+        }
+
+        public void SetAndRandomizeVolume()
+        {
+            if (_soundEvent.volume != 1)
+            {
+                _audioSource.volume = _soundEvent.volume;
+            }
+
+            if (_soundEvent.randomizeVolume != 1)
+            {            
+                _audioSource.volume = Random.Range(_soundEvent.randomizeVolume, _soundEvent.volume);
+            }
+        }
+
+        public void SetAndRandomizePitch()
+        {
+            if (_soundEvent.pitch != 1)
+            {
+                _audioSource.pitch = _soundEvent.pitch;
+            }
+
+            if (_soundEvent.randomizePitch != 1)
+            {
+                _audioSource.pitch = Random.Range(_soundEvent.randomizePitch, _soundEvent.pitch);
+            }
         }
 
         private void OnDestroy()
