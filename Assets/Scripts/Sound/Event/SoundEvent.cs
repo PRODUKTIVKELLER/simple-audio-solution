@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Sound.Event
 {
@@ -10,16 +9,14 @@ namespace Sound.Event
         [Header("Volume")]
         [Range(0f, 1f)]
         public float volume = 1f;
-        [Range(0f, 1f)]
-        public float randomizeVolume = 1f;
+        [HideInInspector] public float randomizeVolume = 1f;
 
 
         [Header("Pitch")]
         [Range(-3f, 3f)]
         public float pitch = 1f;
 
-        [Range(-3f, 3f)]
-        public float randomizePitch = 1f;
+        [HideInInspector] public float randomizePitch = 1f;
 
 
         [Header("Looping")]
