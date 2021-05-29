@@ -16,6 +16,8 @@ namespace Sound.Event
         [Range(-3f, 3f)]
         public float pitch = 1f;
 
+        [HideInInspector] public bool randomizePitchActive;
+        
         [HideInInspector] public float randomizePitch = 1f;
 
 
