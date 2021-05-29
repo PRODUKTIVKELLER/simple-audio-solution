@@ -83,6 +83,8 @@ namespace Sound.Emitter
         {
             _audioSource.Stop();
 
+            // Nur wegwerfen, wenn die Instanz nicht mehr von einem Emitter gebraucht wird.
+            
             // This might not be optimal, since when the sound should still fade out after being stopped,
             // this SoundEventInstance should not be destroyed immediately
             Destroy(this);

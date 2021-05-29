@@ -9,11 +9,14 @@ namespace Sound.Emitter
         public string key;
 
         private SoundEventInstance _soundEventInstance;
+        
 
         public void Play()
         {
             SoundEvent soundEvent = SoundAccess.GetInstance().RetrieveSoundEvent(key);
 
+            
+            // Das wollen wir machen falls der Key sich geändert hat.
             if (_soundEventInstance)
             {
                 _soundEventInstance.Stop();
@@ -29,6 +32,7 @@ namespace Sound.Emitter
                 return;
             }
             
+            // Das hier sollte den Sound nur stoppen, nicht die Instanz zerstören.
             _soundEventInstance.Stop();
         }
     }
