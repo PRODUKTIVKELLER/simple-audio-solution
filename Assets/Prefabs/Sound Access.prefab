@@ -121,6 +121,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 72dfb79408a21594b986ac72eab0a6ae, type: 3}
   - {fileID: 8300000, guid: 319eb551e869cab4c8ad78de5f906332, type: 3}
   multiSoundEventPlaymode: 1
+  audioMixerGroup: {fileID: 0}
 --- !u!1 &1910404631
 GameObject:
   m_ObjectHideFlags: 0
@@ -174,6 +175,7 @@ MonoBehaviour:
   audioClips:
   - {fileID: 8300000, guid: 742920e16373df849bafd7214ca584c6, type: 3}
   multiSoundEventPlaymode: 0
+  audioMixerGroup: {fileID: 0}
 --- !u!1 &1676092576498230486
 GameObject:
   m_ObjectHideFlags: 0
@@ -227,6 +229,7 @@ MonoBehaviour:
   audioClips:
   - {fileID: 8300000, guid: a74aa12b5f4f2e541b3e69d4bca442a2, type: 3}
   multiSoundEventPlaymode: 0
+  audioMixerGroup: {fileID: 0}
 --- !u!1 &2357923499994279551
 GameObject:
   m_ObjectHideFlags: 0
@@ -450,3 +453,4 @@ MonoBehaviour:
   audioClips:
   - {fileID: 8300000, guid: 194eff54a6ca9044fa5dbb212af76d57, type: 3}
   multiSoundEventPlaymode: 0
+  audioMixerGroup: {fileID: 0}
