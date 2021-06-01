@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Sound.Event;
+using Sound.Settings;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -9,13 +11,13 @@ namespace Sound.Access
     {
         private AudioMixer _audioMixer;
         private Dictionary<string, SoundEvent> _soundEvents;
-        
+
         private void Initialize()
         {
             LoadAudioMixer();
             LoadSoundEvents();
         }
-        
+
         private void LoadAudioMixer()
         {
             _audioMixer = Resources.Load("Audio Mixer") as AudioMixer;
@@ -65,7 +67,7 @@ namespace Sound.Access
                     {
                         soundEvent.audioMixerGroup = audioMixerGroup;
                     }
-                    
+
                     return;
                 }
             }
@@ -88,8 +90,18 @@ namespace Sound.Access
 
             return soundEvent;
         }
-        
-        
+
+        public float RetrieveVolume(String parameter)
+        {
+            return AudioMixerGroupVolume.RetrieveVolume(_audioMixer, parameter);
+        }
+
+        public void ApplyVolume(String parameter, float valueBetween0And1)
+        {
+            AudioMixerGroupVolume.ApplyVolume(_audioMixer, parameter, valueBetween0And1);
+        }
+
+
         #region Singleton
 
         private static SoundAccess _instance;
@@ -108,12 +120,12 @@ namespace Sound.Access
                 Initialize();
             }
         }
-        
+
         public static SoundAccess GetInstance()
         {
             return _instance;
         }
-        
+
         #endregion
     }
 }
