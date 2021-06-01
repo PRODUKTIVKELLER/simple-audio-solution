@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Audio;
 
 namespace Sound.Event
 {
@@ -16,14 +17,16 @@ namespace Sound.Event
         [HideInInspector] public bool randomizePitchActive;
 
         [HideInInspector] public float randomizePitch = 1f;
-
-
+        
         [Header("Looping")] public bool isLooping;
 
         [Header("Audio Clips")] public List<AudioClip> audioClips;
 
         [Header("Multi Sound Event Playmode")]
         public MultiSoundEventPlaymode multiSoundEventPlaymode = MultiSoundEventPlaymode.Random;
+
+        [Header("Audio Mixer Group")]
+        public AudioMixerGroup audioMixerGroup;
 
         private List<AudioClip> _previouslyPlayedAudioClips;
 

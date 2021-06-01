@@ -14,6 +14,7 @@ namespace Sound.Emitter
 
             _audioSource = gameObject.AddComponent<AudioSource>();
             _audioSource.loop = _soundEvent.isLooping;
+            _audioSource.outputAudioMixerGroup = _soundEvent.audioMixerGroup;
             
             SetAndRandomizePitch();
             SetAndRandomizeVolume();
