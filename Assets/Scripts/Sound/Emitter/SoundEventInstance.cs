@@ -12,34 +12,21 @@ namespace Sound.Emitter
         {
             _soundEvent = soundEvent;
 
-            // To catch creating multiple AudioSources, this is being checked here.
-            // When playing a looping sound, this Initialize() function is called more than once.
-            if (!_audioSource)
-            {
-                _audioSource = gameObject.AddComponent<AudioSource>();
-            }
-            _audioSource.clip = soundEvent.RetrieveAudioClip();
-
+            _audioSource = gameObject.AddComponent<AudioSource>();
+            _audioSource.loop = _soundEvent.isLooping;
+            
             SetAndRandomizePitch();
             SetAndRandomizeVolume();
-
-            _audioSource.Play();
         }
 
         private void Update()
         {
-
-            if (!_audioSource.isPlaying)
+            if (_audioSource.isPlaying)
             {
-                if (!_soundEvent.isLooping)
-                {
-                    Destroy(this);
-                }
-                else
-                {
-                    Initialize(_soundEvent);
-                }
+                return;
             }
+
+            Destroy(this);
         }
 
         public SoundEvent GetSoundEvent()
@@ -55,7 +42,7 @@ namespace Sound.Emitter
             }
 
             if (_soundEvent.randomizeVolume != 1)
-            {            
+            {
                 _audioSource.volume = Random.Range(_soundEvent.randomizeVolume, _soundEvent.volume);
             }
         }
@@ -82,12 +69,19 @@ namespace Sound.Emitter
         public void Stop()
         {
             _audioSource.Stop();
+        }
 
-            // Nur wegwerfen, wenn die Instanz nicht mehr von einem Emitter gebraucht wird.
-            
-            // This might not be optimal, since when the sound should still fade out after being stopped,
-            // this SoundEventInstance should not be destroyed immediately
+        public void StopAndDestroy()
+        {
+            Stop();
             Destroy(this);
+        }
+
+        public void Play()
+        {
+            _audioSource.clip = _soundEvent.RetrieveAudioClip();
+            
+            _audioSource.Play();
         }
     }
 }

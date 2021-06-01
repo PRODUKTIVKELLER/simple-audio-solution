@@ -710,6 +710,7 @@ MonoBehaviour:
   volume: 1
   randomizeVolume: 1
   pitch: 1
+  randomizePitchActive: 0
   randomizePitch: 1
   isLooping: 0
   audioClip: {fileID: 8300000, guid: 194eff54a6ca9044fa5dbb212af76d57, type: 3}
@@ -779,7 +780,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -133.94206}
+  m_AnchoredPosition: {x: -2, y: 86.000015}
   m_SizeDelta: {x: 250, y: 61.52478}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &424394256
@@ -913,7 +914,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -395}
+  m_AnchoredPosition: {x: 3, y: 97}
   m_SizeDelta: {x: 250, y: 61.52478}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &500738385
@@ -1036,6 +1037,7 @@ MonoBehaviour:
   volume: 1
   randomizeVolume: 1
   pitch: 1
+  randomizePitchActive: 1
   randomizePitch: 1
   isLooping: 0
   audioClip: {fileID: 8300000, guid: 742920e16373df849bafd7214ca584c6, type: 3}
@@ -1242,6 +1244,7 @@ MonoBehaviour:
   volume: 1
   randomizeVolume: 1
   pitch: 1
+  randomizePitchActive: 0
   randomizePitch: 1
   isLooping: 1
   audioClip: {fileID: 8300000, guid: 319eb551e869cab4c8ad78de5f906332, type: 3}
@@ -1415,7 +1418,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -166, y: -517}
+  m_AnchoredPosition: {x: -163, y: -25}
   m_SizeDelta: {x: 264.69067, y: 127.04959}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &877594885
@@ -1992,7 +1995,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -562.19995, y: 112.8999}
+  m_AnchoredPosition: {x: -562.19995, y: -414.89}
   m_SizeDelta: {x: -1218.8732, y: -829.7787}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1387155789
@@ -2178,7 +2181,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -562.19995, y: 112.8999}
+  m_AnchoredPosition: {x: -562.19995, y: -166}
   m_SizeDelta: {x: -1218.8732, y: -829.7787}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1523736887
@@ -2230,7 +2233,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -163.80005, y: -244.94206}
+  m_AnchoredPosition: {x: -165.80005, y: -24.999985}
   m_SizeDelta: {x: 264.69067, y: 127.04959}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1550200389
@@ -2724,6 +2727,7 @@ MonoBehaviour:
   volume: 1
   randomizeVolume: 1
   pitch: 1
+  randomizePitchActive: 0
   randomizePitch: 1
   isLooping: 0
   audioClips:
@@ -2770,7 +2774,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 147, y: -244.94206}
+  m_AnchoredPosition: {x: 145, y: -25}
   m_SizeDelta: {x: 264.69067, y: 127.04959}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2021284283
