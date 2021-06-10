@@ -2079,6 +2079,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   key: /Music/Scene 1/Title Music
+  autocomplete: /Music/Scene 1/Title Music
 --- !u!114 &978331826
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2397,6 +2398,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   key: /SFX/Scene 2/Rock Hit
+  autocomplete: /SFX/Scene 2/Rock Hit
 --- !u!1 &1059748821
 GameObject:
   m_ObjectHideFlags: 0
@@ -2957,6 +2959,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   key: /Voices/Scene 1/Jumping Grunt
+  autocomplete: '/Voices/Scene 1/Jumping Grunt
+
+    /Voices/Scene 1/Jumping Grunt
+    Loop
+
+'
 --- !u!1 &1444531139
 GameObject:
   m_ObjectHideFlags: 0
@@ -3143,6 +3151,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   key: /Voices/Scene 1/Jumping Grunt Loop
+  autocomplete: /Voices/Scene 1/Jumping Grunt Loop
 --- !u!1 &1550200387
 GameObject:
   m_ObjectHideFlags: 0
@@ -3683,6 +3692,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   key: /Music/Scene 1/Title Music
+  autocomplete: /Music/Scene 1/Title Music
 --- !u!4 &1929830218 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2357923500010111824, guid: 8d67d0c4bac52064480cf8893cdf85c1, type: 3}
@@ -4084,6 +4094,18 @@ PrefabInstance:
     - target: {fileID: 330906008, guid: 8d67d0c4bac52064480cf8893cdf85c1, type: 3}
       propertyPath: stealingMode
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 330906008, guid: 8d67d0c4bac52064480cf8893cdf85c1, type: 3}
+      propertyPath: volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 619116228, guid: 8d67d0c4bac52064480cf8893cdf85c1, type: 3}
+      propertyPath: volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 619116228, guid: 8d67d0c4bac52064480cf8893cdf85c1, type: 3}
+      propertyPath: isLooping
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2357923500010111824, guid: 8d67d0c4bac52064480cf8893cdf85c1, type: 3}
       propertyPath: m_LocalPosition.x

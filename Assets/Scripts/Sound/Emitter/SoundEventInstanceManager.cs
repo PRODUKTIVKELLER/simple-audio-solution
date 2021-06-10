@@ -8,7 +8,7 @@ namespace Sound.Emitter
     {
         private readonly Dictionary<string, List<SoundEventInstance>> _soundEventInstances;
 
-        public List<SoundEventInstance> GetInstances(string key)
+        private List<SoundEventInstance> GetInstances(string key)
         {
             if (!_soundEventInstances.ContainsKey(key))
             {
@@ -28,8 +28,43 @@ namespace Sound.Emitter
                 _soundEventInstances[soundEvent.key] = new List<SoundEventInstance>();
             }
 
+            RemoveOldInstanceIfApplicable(soundEvent);
+
             _soundEventInstances[soundEvent.key].Add(soundEventInstance);
             return soundEventInstance;
+        }
+
+        private void RemoveOldInstanceIfApplicable(SoundEvent soundEvent)
+        {
+            List<SoundEventInstance> instances = GetInstances(soundEvent.key);
+
+            if (instances.Count < soundEvent.maxInstances)
+            {
+                return;
+            }
+            
+            if (soundEvent.stealingMode == StealingMode.Oldest)
+            {
+                instances[0].StopAndDestroy();
+                instances.RemoveAt(0);
+            }
+            else if (soundEvent.stealingMode == StealingMode.Newest)
+            {
+                instances[instances.Count - 1].StopAndDestroy();
+                instances.RemoveAt(instances.Count - 1);
+            }
+        }
+
+        public bool IsAnotherInstanceAllowed(SoundEvent soundEvent)
+        {
+            if (soundEvent.stealingMode != StealingMode.None)
+            {
+                return true;
+            }
+            
+            List<SoundEventInstance> instances = GetInstances(soundEvent.key);
+
+            return instances.Count < soundEvent.maxInstances;
         }
 
         public void Unregister(SoundEventInstance soundEventInstance)
