@@ -101,8 +101,6 @@ namespace Sound.Emitter
                     autocompleter = new SoundAccessAutocomplete();
                 }
                 autocomplete = autocompleter.GetAutoComplete(key);
-
-
             }
         }
     }
