@@ -8,6 +8,16 @@ namespace Sound.Emitter
     {
         private readonly Dictionary<string, List<SoundEventInstance>> _soundEventInstances;
 
+        public List<SoundEventInstance> GetInstances(string key)
+        {
+            if (!_soundEventInstances.ContainsKey(key))
+            {
+                return new List<SoundEventInstance>();
+            }
+
+            return _soundEventInstances[key];
+        }
+
         public SoundEventInstance CreateSoundEventInstance(GameObject gameObject, SoundEvent soundEvent)
         {
             SoundEventInstance soundEventInstance = gameObject.AddComponent<SoundEventInstance>();

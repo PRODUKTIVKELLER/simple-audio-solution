@@ -1,4 +1,5 @@
-﻿using Sound.Access;
+﻿using System.Collections.Generic;
+using Sound.Access;
 using Sound.Event;
 using UnityEngine;
 
@@ -9,6 +10,7 @@ namespace Sound.Emitter
         public string key;
 
         private SoundEventInstance _soundEventInstance;
+        private bool _maxInstancesAllowAnotherInstance = true;
         
         public void Play()
         {
@@ -22,9 +24,42 @@ namespace Sound.Emitter
                 return;
             }
 
-            _soundEventInstance =
-                SoundEventInstanceManager.GetInstance().CreateSoundEventInstance(gameObject, soundEvent);
-            _soundEventInstance.Play();
+            HandleMaxInstances(soundEvent);
+
+            if (_maxInstancesAllowAnotherInstance)
+            {
+                _soundEventInstance =
+                    SoundEventInstanceManager.GetInstance().CreateSoundEventInstance(gameObject, soundEvent);
+
+                if (_soundEventInstance != null)
+                {
+                    _soundEventInstance.Play();
+                }
+            }
+
+            _maxInstancesAllowAnotherInstance = true;
+        }
+
+        private void HandleMaxInstances(SoundEvent soundEvent)
+        {
+            List<SoundEventInstance> instances = SoundEventInstanceManager.GetInstance().GetInstances(key);
+            int instancesCount = instances.Count;
+
+            if (instancesCount >= soundEvent.maxInstances)
+            {
+                if (soundEvent.stealingMode == StealingMode.Oldest)
+                {
+                    instances[0].StopAndDestroy();
+                }
+                else if (soundEvent.stealingMode == StealingMode.Newest)
+                {
+                    instances[instancesCount - 1].StopAndDestroy();
+                }
+                else
+                {
+                    _maxInstancesAllowAnotherInstance = false;
+                }
+            }
         }
 
         private void RemoveOldEventInstanceIfKeyHasChanged()
