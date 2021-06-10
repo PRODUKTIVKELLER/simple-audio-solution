@@ -2,9 +2,11 @@
 using Sound.Access;
 using Sound.Event;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Sound.Emitter
 {
+    [ExecuteInEditMode]
     public class SoundEmitter : MonoBehaviour
     {
         public string key;
@@ -81,6 +83,27 @@ namespace Sound.Emitter
             }
 
             _soundEventInstance.Stop();
+        }
+
+
+        private string _oldKey = "";
+        [SerializeField] [TextArea(12, 1)]
+        private string autocomplete = "";
+
+        private SoundAccessAutocomplete autocompleter = new SoundAccessAutocomplete();
+
+        private void Update()
+        {
+            if (key != _oldKey)
+            {
+                if (autocompleter == null)
+                {
+                    autocompleter = new SoundAccessAutocomplete();
+                }
+                autocomplete = autocompleter.GetAutoComplete(key);
+
+
+            }
         }
     }
 }
