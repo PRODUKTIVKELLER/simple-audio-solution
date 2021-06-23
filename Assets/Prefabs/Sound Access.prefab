@@ -110,6 +110,9 @@ MonoBehaviour:
   volume: 1
   randomizeVolume: 1
   pitch: 1
+  isGlobal: 0
+  maxInstances: 1000
+  stealingMode: 0
   randomizePitchActive: 0
   randomizePitch: 1
   isLooping: 0
@@ -169,6 +172,9 @@ MonoBehaviour:
   volume: 1
   randomizeVolume: 1
   pitch: 1
+  isGlobal: 0
+  maxInstances: 1000
+  stealingMode: 0
   randomizePitchActive: 1
   randomizePitch: 0.85
   isLooping: 0
@@ -223,6 +229,9 @@ MonoBehaviour:
   volume: 1
   randomizeVolume: 1
   pitch: 1
+  isGlobal: 0
+  maxInstances: 1000
+  stealingMode: 0
   randomizePitchActive: 0
   randomizePitch: 1
   isLooping: 1
@@ -397,6 +406,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2357923501260908706}
+  - {fileID: 4093030733285441743}
   m_Father: {fileID: 2357923499994279548}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -447,6 +457,66 @@ MonoBehaviour:
   volume: 1
   randomizeVolume: 1
   pitch: 1
+  isGlobal: 0
+  maxInstances: 1000
+  stealingMode: 0
+  randomizePitchActive: 0
+  randomizePitch: 1
+  isLooping: 0
+  audioClips:
+  - {fileID: 8300000, guid: 194eff54a6ca9044fa5dbb212af76d57, type: 3}
+  multiSoundEventPlaymode: 0
+  audioMixerGroup: {fileID: 0}
+--- !u!1 &8159373236776329270
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4093030733285441743}
+  - component: {fileID: 1079755912196174321}
+  m_Layer: 0
+  m_Name: Music 3D
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4093030733285441743
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8159373236776329270}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2357923500759604375}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1079755912196174321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8159373236776329270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 174b7e2422daff24cbd94270afb152c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: 
+  volume: 1
+  randomizeVolume: 1
+  pitch: 1
+  isGlobal: 1
+  maxInstances: 1000
+  stealingMode: 0
   randomizePitchActive: 0
   randomizePitch: 1
   isLooping: 0
