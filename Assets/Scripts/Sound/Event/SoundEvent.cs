@@ -10,10 +10,10 @@ namespace Sound.Event
     {
         [HideInInspector] public string key;
 
-        [Header("Volume")] [Range(0f, 1f)] public float volume = 1f;
+        [Header("Volume")][HideInInspector][Range(0f, 1f)] public float volume = 1f;
         [HideInInspector] public float randomizeVolume = 1f;
 
-        [Header("Pitch")] [Range(-3f, 3f)] public float pitch = 1f;
+        [Header("Pitch")][HideInInspector][Range(-3f, 3f)] public float pitch = 1f;
 
         [Header("Has 3D location")] public bool isGlobal = false;
 
