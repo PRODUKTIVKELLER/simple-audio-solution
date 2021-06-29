@@ -5011,7 +5011,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 619116228, guid: 8d67d0c4bac52064480cf8893cdf85c1, type: 3}
       propertyPath: isLooping
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 619116228, guid: 8d67d0c4bac52064480cf8893cdf85c1, type: 3}
       propertyPath: minVolume
@@ -5031,6 +5031,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 619116228, guid: 8d67d0c4bac52064480cf8893cdf85c1, type: 3}
       propertyPath: isGlobal
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 619116228, guid: 8d67d0c4bac52064480cf8893cdf85c1, type: 3}
+      propertyPath: spatialBlend
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 619116228, guid: 8d67d0c4bac52064480cf8893cdf85c1, type: 3}
+      propertyPath: maxInstances
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 619116228, guid: 8d67d0c4bac52064480cf8893cdf85c1, type: 3}
+      propertyPath: stealingMode
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2357923500010111824, guid: 8d67d0c4bac52064480cf8893cdf85c1, type: 3}

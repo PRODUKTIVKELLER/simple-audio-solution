@@ -15,14 +15,14 @@ namespace Sound.Event
         
         [HideInInspector] public float minPitch = 1f;
         [HideInInspector] public float maxPitch = 1f;
-
-        [Header("Has 3D location")] public bool isGlobal = false;
-
-        [Header("Max Instances")] [Range(1, 1000)] public int maxInstances = 1000;
         
-        [Header("Stealing Mode")] public StealingMode stealingMode = StealingMode.Oldest;
+        [HideInInspector] public float spatialBlend = 1f;
 
-        [Header("Looping")] public bool isLooping;
+        [HideInInspector] public int maxInstances = 1000;
+        
+        [HideInInspector] public StealingMode stealingMode = StealingMode.Oldest;
+
+        [HideInInspector] public bool isLooping;
 
         [Header("Audio Clips")] public List<AudioClip> audioClips;
 
