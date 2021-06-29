@@ -10,10 +10,11 @@ namespace Sound.Event
     {
         [HideInInspector] public string key;
 
-        [Header("Volume")][HideInInspector][Range(0f, 1f)] public float volume = 1f;
-        [HideInInspector] public float randomizeVolume = 1f;
-
-        [Header("Pitch")][HideInInspector][Range(-3f, 3f)] public float pitch = 1f;
+        [HideInInspector] public float minVolume = 1f;
+        [HideInInspector] public float maxVolume = 1f;
+        
+        [HideInInspector] public float minPitch = 1f;
+        [HideInInspector] public float maxPitch = 1f;
 
         [Header("Has 3D location")] public bool isGlobal = false;
 
@@ -21,10 +22,6 @@ namespace Sound.Event
         
         [Header("Stealing Mode")] public StealingMode stealingMode = StealingMode.Oldest;
 
-        [HideInInspector] public bool randomizePitchActive;
-
-        [HideInInspector] public float randomizePitch = 1f;
-        
         [Header("Looping")] public bool isLooping;
 
         [Header("Audio Clips")] public List<AudioClip> audioClips;

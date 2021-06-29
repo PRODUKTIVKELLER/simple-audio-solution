@@ -16,7 +16,7 @@ namespace Sound.Emitter
             _audioSource.loop = _soundEvent.isLooping;
             _audioSource.outputAudioMixerGroup = _soundEvent.audioMixerGroup;
             _audioSource.spatialBlend = soundEvent.isGlobal ? 1f : 0f;
-            
+
             SetAndRandomizePitch();
             SetAndRandomizeVolume();
         }
@@ -36,30 +36,14 @@ namespace Sound.Emitter
             return _soundEvent;
         }
 
-        public void SetAndRandomizeVolume()
+        private void SetAndRandomizeVolume()
         {
-            if (_soundEvent.volume != 1)
-            {
-                _audioSource.volume = _soundEvent.volume;
-            }
-
-            if (_soundEvent.randomizeVolume != 1)
-            {
-                _audioSource.volume = Random.Range(_soundEvent.randomizeVolume, _soundEvent.volume);
-            }
+            _audioSource.volume = Random.Range(_soundEvent.minVolume, _soundEvent.maxVolume);
         }
 
-        public void SetAndRandomizePitch()
+        private void SetAndRandomizePitch()
         {
-            if (_soundEvent.pitch != 1)
-            {
-                _audioSource.pitch = _soundEvent.pitch;
-            }
-
-            if (_soundEvent.randomizePitch != 1)
-            {
-                _audioSource.pitch = Random.Range(_soundEvent.randomizePitch, _soundEvent.pitch);
-            }
+            _audioSource.pitch = Random.Range(_soundEvent.minPitch, _soundEvent.maxPitch);
         }
 
         private void OnDestroy()
@@ -82,7 +66,7 @@ namespace Sound.Emitter
         public void Play()
         {
             _audioSource.clip = _soundEvent.RetrieveAudioClip();
-            
+
             _audioSource.Play();
         }
     }

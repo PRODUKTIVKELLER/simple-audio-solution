@@ -1,26 +1,21 @@
-﻿using UnityEditor;
+﻿using System;
+using UnityEditor;
 using UnityEngine;
 
 namespace Sound.Event.Editor
 {
-    [CustomEditor(typeof(SoundEvent), true)]
+    [CustomEditor(typeof(SoundEvent))]
     public class SoundEventEditor : UnityEditor.Editor
     {
         public float minVolumeVal;
-        public float minVolumeLimit = 0;
         public float maxVolumeVal;
-        public float maxVolumeLimit = 1;
-
         public float minPitchVal;
-        public float minPitchLimit = 0;
         public float maxPitchVal;
-        public float maxPitchLimit = 1;
 
         private float _randomVolume;
 
-        private bool _randomVolumeActive;
-
         private SoundEvent _soundEvent;
+        
 
 
         public void OnEnable()
@@ -30,44 +25,28 @@ namespace Sound.Event.Editor
 
         public override void OnInspectorGUI()
         {
-            EditorGUILayout.Slider("Volume",_soundEvent.volume, 0f, 1f);
-            ToggleRandomVolume();
+            MinMaxSlider("Volume", ref _soundEvent.minVolume, ref _soundEvent.maxVolume);
+            MinMaxSlider("Pitch", ref _soundEvent.minPitch, ref _soundEvent.maxPitch, -3, 3);
 
-            EditorGUILayout.Slider("Pitch", _soundEvent.volume, -3f, 3f);
-            ToggleRandomPitch();
-
-            base.OnInspectorGUI();
+            DrawDefaultInspector();
         }
 
-        private void ToggleRandomPitch()
+        private void MinMaxSlider(string label, ref float min, ref float max, float minLimit = 0, float maxLimit = 1)
         {
-            _soundEvent.randomizePitchActive = EditorGUILayout.ToggleLeft("Randomize Pitch", _soundEvent.randomizePitchActive);
+            float oldMin = min;
+            float oldMax = max;
+            
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField(label);
+            min = (float) Math.Round(EditorGUILayout.FloatField( min, GUILayout.Width(40.0f)), 2);
+            EditorGUILayout.MinMaxSlider(ref min, ref max, minLimit, maxLimit);
+            max = (float) Math.Round(EditorGUILayout.FloatField(max, GUILayout.Width(40.0f)), 2);
+            EditorGUILayout.EndHorizontal();
 
-            //_soundEvent.randomizePitch = _soundEvent.randomizePitchActive ? EditorGUILayout.Slider(_soundEvent.randomizePitch, -3f, 3f) : 1f;
-
-            if (_soundEvent.randomizePitchActive)
+            if (oldMin != min || oldMax != max)
             {
-                EditorGUILayout.LabelField("Min Val:", minPitchVal.ToString());
-                EditorGUILayout.LabelField("Max Val:", maxPitchVal.ToString());
-                EditorGUILayout.MinMaxSlider(ref minPitchVal, ref maxPitchVal, minPitchLimit, maxPitchLimit);
+                EditorUtility.SetDirty(_soundEvent);
             }
         }
-
-        private void ToggleRandomVolume()
-        {
-            _randomVolumeActive = EditorGUILayout.ToggleLeft("Randomize Volume", _randomVolumeActive);
-
-            //_randomVolume = _randomVolumeActive ? EditorGUILayout.Slider(_randomVolume, 0f, 1f) : 1f;
-
-            if (_randomVolumeActive)
-            {
-                EditorGUILayout.LabelField("Min Val:", minVolumeVal.ToString());
-                EditorGUILayout.LabelField("Max Val:", maxVolumeVal.ToString());
-                EditorGUILayout.MinMaxSlider(ref minVolumeVal, ref maxVolumeVal, minVolumeLimit, maxVolumeLimit);
-            }
-
-            _soundEvent.randomizeVolume = _randomVolume;
-        }
-
     }
 }
