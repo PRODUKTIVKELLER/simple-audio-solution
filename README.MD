@@ -10,8 +10,7 @@ First install the [Git Dependency Resolver For Unity]("https://github.com/mob-sa
 ```json
 {
   "dependencies": {
-    "com.coffee.git-dependency-resolver": "https://github.com/mob-sakai/GitDependencyResolverForUnity.git",
-    ...
+    "com.coffee.git-dependency-resolver": "https://github.com/mob-sakai/GitDependencyResolverForUnity.git"
   },
 }
 ```
