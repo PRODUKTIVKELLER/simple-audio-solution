@@ -25,24 +25,19 @@ namespace Produktivkeller.SimpleAudioSolution.Emitter
 
             RemoveOldEventInstanceIfKeyHasChanged();
 
+            if (!SoundEventInstanceManager.GetInstance().IsAllowedToPlay(soundEvent))
+            {
+                return;
+            }
+
             if (_soundEventInstance)
             {
                 _soundEventInstance.Play();
                 return;
             }
 
-            if (!SoundEventInstanceManager.GetInstance().IsAnotherInstanceAllowed(soundEvent))
-            {
-                return;
-            }
-
-            _soundEventInstance =
-                SoundEventInstanceManager.GetInstance().CreateSoundEventInstance(gameObject, soundEvent);
-
-            if (_soundEventInstance != null)
-            {
-                _soundEventInstance.Play();
-            }
+            _soundEventInstance = SoundEventInstanceManager.GetInstance().CreateSoundEventInstance(gameObject, soundEvent);
+            _soundEventInstance.Play();
         }
 
         private void RemoveOldEventInstanceIfKeyHasChanged()

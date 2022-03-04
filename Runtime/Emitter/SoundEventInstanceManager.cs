@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Produktivkeller.SimpleAudioSolution.Event;
 using UnityEngine;
 
@@ -36,7 +37,7 @@ namespace Produktivkeller.SimpleAudioSolution.Emitter
 
         public SoundEventInstance CreateOneShotSoundEventInstance(SoundEvent soundEvent, Vector3 position)
         {
-            if (!IsAnotherInstanceAllowed(soundEvent))
+            if (!IsAllowedToPlay(soundEvent))
             {
                 return null;
             }
@@ -71,7 +72,7 @@ namespace Produktivkeller.SimpleAudioSolution.Emitter
             }
         }
 
-        public bool IsAnotherInstanceAllowed(SoundEvent soundEvent)
+        public bool IsAllowedToPlay(SoundEvent soundEvent)
         {
             if (soundEvent.stealingMode != StealingMode.None)
             {
@@ -79,8 +80,8 @@ namespace Produktivkeller.SimpleAudioSolution.Emitter
             }
 
             List<SoundEventInstance> instances = GetInstances(soundEvent.key);
-
-            return instances.Count < soundEvent.maxInstances;
+            
+            return instances.Count(i => i.IsPlaying()) < soundEvent.maxInstances;
         }
 
         public void Unregister(SoundEventInstance soundEventInstance)
