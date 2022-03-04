@@ -1,0 +1,16 @@
+{
+    "name": "com.produktivkeller.simple-audio-solution",
+    "rootNamespace": "Produktivkeller.SimpleAudioSolution",
+    "references": [
+        "com.produktivkeller.simple-coroutines"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

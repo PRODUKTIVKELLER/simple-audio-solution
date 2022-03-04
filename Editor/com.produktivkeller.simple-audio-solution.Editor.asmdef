@@ -1,0 +1,16 @@
+{
+    "name": "com.produktivkeller.simple-audio-solution.editor",
+    "rootNamespace": "Produktivkeller.SimpleAudioSolution.Editor",
+    "references": [
+        "GUID:c83c29cd4f1a08540b174e6d04912389"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -78,6 +78,7 @@ $RECYCLE.BIN/
 # Changes after test on OSX
 .DS_Store
 Thumbs.db.meta
+Zenject.csproj.meta
 Zenject-*.csproj.meta
 
 # FMOD
@@ -87,7 +88,13 @@ FMODStudioCache.asset
 /Fmod/.unsaved/
 /Fmod/.cache/
 
-# IntelliJ
-.idea/
+.idea
 
 *.unitypackage.meta
+
+# Excel
+~$*
+
+# Steampipe
+Steampipe/sdk/tools/ContentBuilder/content/
+Steampipe/sdk/tools/ContentBuilder/output/
