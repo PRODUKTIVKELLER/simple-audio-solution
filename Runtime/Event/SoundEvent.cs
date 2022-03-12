@@ -24,7 +24,7 @@ namespace Produktivkeller.SimpleAudioSolution.Event
         public float maxPitch = 1f;
 
         [HideInInspector]
-        public bool spatialize = false;
+        public bool spatialize;
 
         [HideInInspector]
         public float spatialBlend = 1f;
@@ -51,6 +51,24 @@ namespace Produktivkeller.SimpleAudioSolution.Event
 
         [Header("Audio Mixer Group")]
         public AudioMixerGroup audioMixerGroup;
+
+        [HideInInspector]
+        public float dopplerLevel;
+
+        [HideInInspector]
+        public float spread;
+
+        [HideInInspector]
+        public float minDistance = 1f;
+
+        [HideInInspector]
+        public float maxDistance = 500f;
+
+        [HideInInspector]
+        public VolumeRolloff volumeRolloff = VolumeRolloff.Logarithmic;
+
+        [HideInInspector]
+        public AnimationCurve rolloffCurve;
 
         private List<AudioClip> _previouslyPlayedAudioClips;
 

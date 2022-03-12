@@ -1,5 +1,7 @@
-﻿using Produktivkeller.SimpleAudioSolution.Event;
+﻿using System;
+using Produktivkeller.SimpleAudioSolution.Event;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Produktivkeller.SimpleAudioSolution.Emitter
 {
@@ -45,6 +47,26 @@ namespace Produktivkeller.SimpleAudioSolution.Emitter
             _audioSource.spatialize            = _soundEvent.spatialize;
             _audioSource.priority              = _soundEvent.priority;
             _audioSource.playOnAwake           = false;
+            _audioSource.dopplerLevel          = _soundEvent.dopplerLevel;
+            _audioSource.spread                = _soundEvent.spread;
+            _audioSource.minDistance           = _soundEvent.minDistance;
+            _audioSource.maxDistance           = _soundEvent.maxDistance;
+
+            switch (_soundEvent.volumeRolloff)
+            {
+                case VolumeRolloff.Logarithmic:
+                    _audioSource.rolloffMode = AudioRolloffMode.Logarithmic;
+                    break;
+                case VolumeRolloff.Linear:
+                    _audioSource.rolloffMode = AudioRolloffMode.Linear;
+                    break;
+                case VolumeRolloff.Custom:
+                    _audioSource.rolloffMode = AudioRolloffMode.Custom;
+                    _audioSource.SetCustomCurve(AudioSourceCurveType.CustomRolloff, _soundEvent.rolloffCurve);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
 
             SetAndRandomizePitch();
             SetAndRandomizeVolume();

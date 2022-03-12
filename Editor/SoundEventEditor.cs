@@ -3,16 +3,11 @@ using Produktivkeller.SimpleAudioSolution.Event;
 using UnityEditor;
 using UnityEngine;
 
-namespace Sound.Event.Editor
+namespace Produktivkeller.SimpleAudioSolution.Editor.Editor
 {
     [CustomEditor(typeof(SoundEvent))]
     public class SoundEventEditor : UnityEditor.Editor
     {
-        public float minVolumeVal;
-        public float maxVolumeVal;
-        public float minPitchVal;
-        public float maxPitchVal;
-
         private float _randomVolume;
 
         private SoundEvent _soundEvent;
@@ -20,7 +15,7 @@ namespace Sound.Event.Editor
 
         public void OnEnable()
         {
-            _soundEvent = (SoundEvent) target;
+            _soundEvent = (SoundEvent)target;
         }
 
         public override void OnInspectorGUI()
@@ -37,6 +32,21 @@ namespace Sound.Event.Editor
             Checkbox("Reflect",    ref _soundEvent.reflect);
 
             DrawDefaultInspector();
+
+            if (_soundEvent.spatialBlend == 0)
+            {
+                return;
+            }
+
+            FloatSlider("Doppler Level", ref _soundEvent.dopplerLevel);
+            FloatSlider("Spread",        ref _soundEvent.spread);
+            MinMaxSlider("Distance", ref _soundEvent.minDistance, ref _soundEvent.maxDistance, 0, 500);
+            EnumSelection("Volume Rolloff", ref _soundEvent.volumeRolloff);
+
+            if (_soundEvent.volumeRolloff == VolumeRolloff.Custom)
+            {
+                AnimationCurve("Rolloff Curve", ref _soundEvent.rolloffCurve);
+            }
         }
 
         private void Checkbox(string label, ref bool value)
@@ -60,7 +70,7 @@ namespace Sound.Event.Editor
 
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.LabelField(label);
-            value = (T) EditorGUILayout.EnumPopup(value);
+            value = (T)EditorGUILayout.EnumPopup(value);
             EditorGUILayout.EndHorizontal();
 
             if (oldValue.CompareTo(value) != 0)
@@ -90,7 +100,7 @@ namespace Sound.Event.Editor
 
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.LabelField(label);
-            value = (float) Math.Round(EditorGUILayout.Slider(value, minLimit, maxLimit), 2);
+            value = (float)Math.Round(EditorGUILayout.Slider(value, minLimit, maxLimit), 2);
             EditorGUILayout.EndHorizontal();
 
             if (oldValue != value)
@@ -107,12 +117,25 @@ namespace Sound.Event.Editor
 
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.LabelField(label);
-            min = (float) Math.Round(EditorGUILayout.FloatField(min, GUILayout.Width(40.0f)), 2);
+            min = (float)Math.Round(EditorGUILayout.FloatField(min, GUILayout.Width(40.0f)), 2);
             EditorGUILayout.MinMaxSlider(ref min, ref max, minLimit, maxLimit);
-            max = (float) Math.Round(EditorGUILayout.FloatField(max, GUILayout.Width(40.0f)), 2);
+            max = (float)Math.Round(EditorGUILayout.FloatField(max, GUILayout.Width(40.0f)), 2);
             EditorGUILayout.EndHorizontal();
 
             if (oldMin != min || oldMax != max)
+            {
+                EditorUtility.SetDirty(_soundEvent);
+            }
+        }
+
+        private void AnimationCurve(string label, ref AnimationCurve animationCurve)
+        {
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField(label);
+            animationCurve = EditorGUILayout.CurveField(animationCurve);
+            EditorGUILayout.EndHorizontal();
+
+            if (GUILayout.Button("Mark rolloff as dirty"))
             {
                 EditorUtility.SetDirty(_soundEvent);
             }
