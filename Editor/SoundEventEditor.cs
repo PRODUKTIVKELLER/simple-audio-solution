@@ -22,7 +22,7 @@ namespace Produktivkeller.SimpleAudioSolution.Editor.Editor
         {
             MinMaxSlider("Volume", ref _soundEvent.minVolume, ref _soundEvent.maxVolume);
             MinMaxSlider("Pitch",  ref _soundEvent.minPitch,  ref _soundEvent.maxPitch, -3, 3);
-            MinMaxSlider("Delay",  ref _soundEvent.minDelay,  ref _soundEvent.maxDelay, 0f, 5f);
+            MinMaxSlider("Delay",  ref _soundEvent.minDelay,  ref _soundEvent.maxDelay, 0f, 30f);
 
             Checkbox("Spatialize", ref _soundEvent.spatialize);
             FloatSlider("Spatial Blend (2D = 0, 3D = 1)", ref _soundEvent.spatialBlend);
@@ -37,7 +37,11 @@ namespace Produktivkeller.SimpleAudioSolution.Editor.Editor
             if (_soundEvent.audioClips.Count > 1)
             {
                 EnumSelection("Playmode", ref _soundEvent.multiSoundEventPlaymode);
-                Checkbox("Ignore First Delay", ref _soundEvent.ignoreFirstDelay);
+
+                if (_soundEvent.isLooping)
+                {
+                    Checkbox("Ignore First Delay", ref _soundEvent.ignoreFirstDelay);
+                }
             }
 
             if (_soundEvent.spatialBlend == 0)
