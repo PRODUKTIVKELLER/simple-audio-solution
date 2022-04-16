@@ -59,6 +59,9 @@ namespace Produktivkeller.SimpleAudioSolution.Event
         public float maxDelay = 0f;
 
         [HideInInspector]
+        public bool ignoreFirstDelay;
+
+        [HideInInspector]
         public float dopplerLevel;
 
         [HideInInspector]

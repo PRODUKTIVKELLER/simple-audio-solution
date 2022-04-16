@@ -12,6 +12,7 @@ namespace Produktivkeller.SimpleAudioSolution.Emitter
         private SoundEvent  _soundEvent;
         private float       _stopTime;
         private bool        _wasStopped;
+        private bool        _isFirstPlayback = true;
 
         private void Update()
         {
@@ -123,7 +124,16 @@ namespace Produktivkeller.SimpleAudioSolution.Emitter
             }
 
             _audioSource.clip = audioClip;
-            _audioSource.PlayDelayed(Random.Range(_soundEvent.minDelay, _soundEvent.maxDelay));
+
+            if (_isFirstPlayback && _soundEvent.ignoreFirstDelay)
+            {
+                _audioSource.Play();
+                _isFirstPlayback = false;
+            }
+            else
+            {
+                _audioSource.PlayDelayed(Random.Range(_soundEvent.minDelay, _soundEvent.maxDelay));
+            }
 
             _stopTime   = 0;
             _wasStopped = false;

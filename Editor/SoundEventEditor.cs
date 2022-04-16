@@ -37,6 +37,7 @@ namespace Produktivkeller.SimpleAudioSolution.Editor.Editor
             if (_soundEvent.audioClips.Count > 1)
             {
                 EnumSelection("Playmode", ref _soundEvent.multiSoundEventPlaymode);
+                Checkbox("Ignore First Delay", ref _soundEvent.ignoreFirstDelay);
             }
 
             if (_soundEvent.spatialBlend == 0)
