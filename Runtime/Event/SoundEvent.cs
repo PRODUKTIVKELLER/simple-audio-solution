@@ -70,11 +70,12 @@ namespace Produktivkeller.SimpleAudioSolution.Event
         [HideInInspector]
         public AnimationCurve rolloffCurve;
 
-        private List<AudioClip> _previouslyPlayedAudioClips;
+        private List<AudioClip> _excludedAudioClips;
+        private AudioClip       _previousAudioClip;
 
         public void Start()
         {
-            _previouslyPlayedAudioClips = new List<AudioClip>();
+            _excludedAudioClips = new List<AudioClip>();
 
             if (audioClips == null || audioClips.Count == 0)
             {
@@ -99,15 +100,21 @@ namespace Produktivkeller.SimpleAudioSolution.Event
                 return PickRandomClip(audioClips);
             }
 
-            if (_previouslyPlayedAudioClips.Count >= audioClips.Count)
+            if (_excludedAudioClips.Count >= audioClips.Count)
             {
-                _previouslyPlayedAudioClips = new List<AudioClip>();
+                _excludedAudioClips = new List<AudioClip>();
+
+                if (_previousAudioClip != null)
+                {
+                    _excludedAudioClips.Add(_previousAudioClip);
+                }
             }
 
-            List<AudioClip> audioClipsForShuffle = audioClips.Except(_previouslyPlayedAudioClips).ToList();
+            List<AudioClip> audioClipsForShuffle = audioClips.Except(_excludedAudioClips).ToList();
             AudioClip       shuffledAudioClip    = PickRandomClip(audioClipsForShuffle);
-
-            _previouslyPlayedAudioClips.Add(shuffledAudioClip);
+            
+            _previousAudioClip = shuffledAudioClip;
+            _excludedAudioClips.Add(shuffledAudioClip);
 
             return shuffledAudioClip;
         }

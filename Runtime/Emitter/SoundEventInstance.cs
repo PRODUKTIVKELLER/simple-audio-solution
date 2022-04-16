@@ -21,7 +21,7 @@ namespace Produktivkeller.SimpleAudioSolution.Emitter
             }
 
             bool hasEnded = !_wasStopped && !_audioSource.isPlaying;
-            
+
             if (hasEnded && _soundEvent.isLooping && _soundEvent.audioClips.Count > 1)
             {
                 Play();
@@ -111,7 +111,7 @@ namespace Produktivkeller.SimpleAudioSolution.Emitter
         public void Play()
         {
             AudioClip audioClip = _soundEvent.RetrieveAudioClip();
-            
+
             Play(audioClip);
         }
 
@@ -121,7 +121,7 @@ namespace Produktivkeller.SimpleAudioSolution.Emitter
             {
                 _audioSource.loop = false;
             }
-            
+
             _audioSource.clip = audioClip;
 
             _audioSource.Play();
