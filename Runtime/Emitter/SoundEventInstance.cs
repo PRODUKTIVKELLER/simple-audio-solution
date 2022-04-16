@@ -11,12 +11,20 @@ namespace Produktivkeller.SimpleAudioSolution.Emitter
         private bool        _oneShot;
         private SoundEvent  _soundEvent;
         private float       _stopTime;
+        private bool        _wasStopped;
 
         private void Update()
         {
             if (_stopTime != 0 && _stopTime < Time.time)
             {
                 Stop();
+            }
+
+            bool hasEnded = !_wasStopped && !_audioSource.isPlaying;
+            
+            if (hasEnded && _soundEvent.isLooping && _soundEvent.audioClips.Count > 1)
+            {
+                Play();
             }
 
             if (_audioSource.isPlaying)
@@ -90,7 +98,8 @@ namespace Produktivkeller.SimpleAudioSolution.Emitter
         public void Stop()
         {
             _audioSource.Stop();
-            _stopTime = 0;
+            _stopTime   = 0;
+            _wasStopped = true;
         }
 
         public void StopAndDestroy()
@@ -101,18 +110,23 @@ namespace Produktivkeller.SimpleAudioSolution.Emitter
 
         public void Play()
         {
-            _audioSource.clip = _soundEvent.RetrieveAudioClip();
-
-            _audioSource.Play();
-            _stopTime = 0;
+            AudioClip audioClip = _soundEvent.RetrieveAudioClip();
+            
+            Play(audioClip);
         }
 
         internal void Play(AudioClip audioClip)
         {
+            if (_audioSource.loop && _soundEvent.audioClips.Count > 1)
+            {
+                _audioSource.loop = false;
+            }
+            
             _audioSource.clip = audioClip;
 
             _audioSource.Play();
-            _stopTime = 0;
+            _stopTime   = 0;
+            _wasStopped = false;
         }
 
         public void MarkAsOneShot()
