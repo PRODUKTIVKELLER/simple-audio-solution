@@ -123,8 +123,8 @@ namespace Produktivkeller.SimpleAudioSolution.Emitter
             }
 
             _audioSource.clip = audioClip;
+            _audioSource.PlayDelayed(Random.Range(_soundEvent.minDelay, _soundEvent.maxDelay));
 
-            _audioSource.Play();
             _stopTime   = 0;
             _wasStopped = false;
         }

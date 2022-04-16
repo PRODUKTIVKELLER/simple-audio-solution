@@ -15,13 +15,14 @@ namespace Produktivkeller.SimpleAudioSolution.Editor.Editor
 
         public void OnEnable()
         {
-            _soundEvent = (SoundEvent)target;
+            _soundEvent = (SoundEvent) target;
         }
 
         public override void OnInspectorGUI()
         {
             MinMaxSlider("Volume", ref _soundEvent.minVolume, ref _soundEvent.maxVolume);
             MinMaxSlider("Pitch",  ref _soundEvent.minPitch,  ref _soundEvent.maxPitch, -3, 3);
+            MinMaxSlider("Delay",  ref _soundEvent.minDelay,  ref _soundEvent.maxDelay, 0f, 5f);
 
             Checkbox("Spatialize", ref _soundEvent.spatialize);
             FloatSlider("Spatial Blend (2D = 0, 3D = 1)", ref _soundEvent.spatialBlend);
@@ -32,6 +33,11 @@ namespace Produktivkeller.SimpleAudioSolution.Editor.Editor
             Checkbox("Reflect",    ref _soundEvent.reflect);
 
             DrawDefaultInspector();
+
+            if (_soundEvent.audioClips.Count > 1)
+            {
+                EnumSelection("Playmode", ref _soundEvent.multiSoundEventPlaymode);
+            }
 
             if (_soundEvent.spatialBlend == 0)
             {
@@ -70,7 +76,7 @@ namespace Produktivkeller.SimpleAudioSolution.Editor.Editor
 
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.LabelField(label);
-            value = (T)EditorGUILayout.EnumPopup(value);
+            value = (T) EditorGUILayout.EnumPopup(value);
             EditorGUILayout.EndHorizontal();
 
             if (oldValue.CompareTo(value) != 0)
@@ -100,7 +106,7 @@ namespace Produktivkeller.SimpleAudioSolution.Editor.Editor
 
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.LabelField(label);
-            value = (float)Math.Round(EditorGUILayout.Slider(value, minLimit, maxLimit), 2);
+            value = (float) Math.Round(EditorGUILayout.Slider(value, minLimit, maxLimit), 2);
             EditorGUILayout.EndHorizontal();
 
             if (oldValue != value)
@@ -117,9 +123,9 @@ namespace Produktivkeller.SimpleAudioSolution.Editor.Editor
 
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.LabelField(label);
-            min = (float)Math.Round(EditorGUILayout.FloatField(min, GUILayout.Width(40.0f)), 2);
+            min = (float) Math.Round(EditorGUILayout.FloatField(min, GUILayout.Width(40.0f)), 2);
             EditorGUILayout.MinMaxSlider(ref min, ref max, minLimit, maxLimit);
-            max = (float)Math.Round(EditorGUILayout.FloatField(max, GUILayout.Width(40.0f)), 2);
+            max = (float) Math.Round(EditorGUILayout.FloatField(max, GUILayout.Width(40.0f)), 2);
             EditorGUILayout.EndHorizontal();
 
             if (oldMin != min || oldMax != max)

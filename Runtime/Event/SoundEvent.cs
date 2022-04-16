@@ -43,14 +43,20 @@ namespace Produktivkeller.SimpleAudioSolution.Event
 
         public int priority = 128;
 
+        [Header("Audio Mixer Group")]
+        public AudioMixerGroup audioMixerGroup;
+
         [Header("Audio Clips")]
         public List<AudioClip> audioClips;
 
-        [Header("Multi Sound Event Playmode")]
+        [HideInInspector]
         public MultiSoundEventPlaymode multiSoundEventPlaymode = MultiSoundEventPlaymode.Random;
 
-        [Header("Audio Mixer Group")]
-        public AudioMixerGroup audioMixerGroup;
+        [HideInInspector]
+        public float minDelay = 0f;
+
+        [HideInInspector]
+        public float maxDelay = 0f;
 
         [HideInInspector]
         public float dopplerLevel;
@@ -112,7 +118,7 @@ namespace Produktivkeller.SimpleAudioSolution.Event
 
             List<AudioClip> audioClipsForShuffle = audioClips.Except(_excludedAudioClips).ToList();
             AudioClip       shuffledAudioClip    = PickRandomClip(audioClipsForShuffle);
-            
+
             _previousAudioClip = shuffledAudioClip;
             _excludedAudioClips.Add(shuffledAudioClip);
 
