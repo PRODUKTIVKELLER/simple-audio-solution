@@ -82,6 +82,26 @@ namespace Produktivkeller.SimpleAudioSolution.Emitter
             return _soundEventInstance.GetVolume();
         }
 
+        public void SetPitch(float pitch)
+        {
+            if (!_soundEventInstance)
+            {
+                return;
+            }
+
+            _soundEventInstance.SetPitch(pitch);
+        }
+
+        public float GetPitch()
+        {
+            if (!_soundEventInstance)
+            {
+                return -1f;
+            }
+
+            return _soundEventInstance.GetPitch();
+        }
+
         public bool IsPlaying()
         {
             if (!_soundEventInstance)

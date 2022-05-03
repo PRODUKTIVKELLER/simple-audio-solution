@@ -155,6 +155,16 @@ namespace Produktivkeller.SimpleAudioSolution.Emitter
             return _audioSource.volume;
         }
 
+        public void SetPitch(float pitch)
+        {
+            _audioSource.pitch = pitch;
+        }
+
+        public float GetPitch()
+        {
+            return _audioSource.pitch;
+        }
+
         public bool IsPlaying()
         {
             return _audioSource.isPlaying;
