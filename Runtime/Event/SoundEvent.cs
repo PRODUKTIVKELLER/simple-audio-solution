@@ -109,7 +109,7 @@ namespace Produktivkeller.SimpleAudioSolution.Event
                 return PickRandomClip(audioClips);
             }
 
-            if (_excludedAudioClips.Count >= audioClips.Count)
+            if (_excludedAudioClips == null || _excludedAudioClips.Count >= audioClips.Count)
             {
                 _excludedAudioClips = new List<AudioClip>();
 
