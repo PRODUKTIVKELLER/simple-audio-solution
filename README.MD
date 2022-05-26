@@ -70,7 +70,7 @@ Then install the **Simple Audio Solution** by adding the following lines to your
 
 1. Copy and paste the example prefab `Packages/com.produktivkeller.simple-audio-solution/Prefabs/SoundAccess` to your `Assets` folder. Otherwise, your changes to the prefab will be overriden when updating the **Simple Audio Solution**!
 
-2. Copy the `AudioMixer` found at `Packages/com.produktivkeller.simple-audio-solution/Resources/Audio Mixer` to any `Resources` folder in your project.
+2. Copy the `AudioMixer` found at `Packages/com.produktivkeller.simple-audio-solution/Audio Mixer/Audio Mixer - Example` to any `Resources` folder in your project and rename it to `Audio Mixer`.
 
 3. Drag and drop the prefab from step one to your scene.
 
