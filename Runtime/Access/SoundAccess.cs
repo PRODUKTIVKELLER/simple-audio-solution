@@ -21,6 +21,10 @@ namespace Produktivkeller.SimpleAudioSolution.Access
         {
             LoadAudioMixer();
             LoadSoundEvents();
+        }
+
+        private void Start()
+        {
             LoadVolume();
         }
 
