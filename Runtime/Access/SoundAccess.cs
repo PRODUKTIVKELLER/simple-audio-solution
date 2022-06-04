@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Produktivkeller.SimpleAudioSolution.Emitter;
 using Produktivkeller.SimpleAudioSolution.Event;
 using Produktivkeller.SimpleAudioSolution.Settings;
@@ -14,10 +15,13 @@ namespace Produktivkeller.SimpleAudioSolution.Access
         private AudioMixer                     _audioMixer;
         private Dictionary<string, SoundEvent> _soundEvents;
 
+        private const string PERSISTENCE_KEY_VOLUME = "volume.";
+
         private void Initialize()
         {
             LoadAudioMixer();
             LoadSoundEvents();
+            LoadVolume();
         }
 
         private void LoadAudioMixer()
@@ -35,6 +39,26 @@ namespace Produktivkeller.SimpleAudioSolution.Access
             _soundEvents = new Dictionary<string, SoundEvent>();
 
             LoadSoundEventsRecursively(transform, "", null);
+        }
+
+        private void LoadVolume()
+        {
+            List<AudioMixerGroup> audioMixerGroups = _audioMixer.FindMatchingGroups(string.Empty).ToList();
+
+            foreach (AudioMixerGroup audioMixerGroup in audioMixerGroups)
+            {
+                string persistenceKey = PERSISTENCE_KEY_VOLUME + audioMixerGroup.name;
+
+                if (!PlayerPrefs.HasKey(persistenceKey))
+                {
+                    PlayerPrefs.SetFloat(persistenceKey, AudioMixerGroupVolume.RetrieveVolume(_audioMixer, audioMixerGroup.name));
+                    PlayerPrefs.Save();
+
+                    continue;
+                }
+
+                ApplyVolume(audioMixerGroup.name, PlayerPrefs.GetFloat(persistenceKey));
+            }
         }
 
         private void LoadSoundEventsRecursively(Transform current, string path, AudioMixerGroup audioMixerGroup)
@@ -95,11 +119,27 @@ namespace Produktivkeller.SimpleAudioSolution.Access
 
         public float RetrieveVolume(String parameter)
         {
-            return AudioMixerGroupVolume.RetrieveVolume(_audioMixer, parameter);
+            string persistenceKey = PERSISTENCE_KEY_VOLUME + parameter;
+
+            if (PlayerPrefs.HasKey(persistenceKey))
+            {
+                return PlayerPrefs.GetFloat(persistenceKey);
+            }
+
+            float volume = AudioMixerGroupVolume.RetrieveVolume(_audioMixer, parameter);
+            PlayerPrefs.SetFloat(persistenceKey, volume);
+            PlayerPrefs.Save();
+
+            return volume;
         }
 
         public void ApplyVolume(String parameter, float valueBetween0And1)
         {
+            string persistenceKey = PERSISTENCE_KEY_VOLUME + parameter;
+
+            PlayerPrefs.SetFloat(persistenceKey, valueBetween0And1);
+            PlayerPrefs.Save();
+
             AudioMixerGroupVolume.ApplyVolume(_audioMixer, parameter, valueBetween0And1);
         }
 
