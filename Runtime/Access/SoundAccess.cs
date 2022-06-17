@@ -120,12 +120,6 @@ namespace Produktivkeller.SimpleAudioSolution.Access
 
             return soundEvent;
         }
-        
-        public List<SoundEvent> RetrieveLoopingSoundEvents()
-        {
-            return _soundEvents.Values.Where(soundEvent => soundEvent.isLooping).ToList();
-        }
-        
 
         public float RetrieveVolume(String parameter)
         {
@@ -174,16 +168,6 @@ namespace Produktivkeller.SimpleAudioSolution.Access
         public void PlayOneShot2DDelayed(string soundEventKey, float delay)
         {
             StartCoroutine(PlayOneShot2DDelayedAsync(soundEventKey, delay));
-        }
-
-        public void MuteLoopingSounds()
-        {
-            SoundEventInstanceManager.GetInstance().MuteLoopingSoundEventInstances();
-        }
-        
-        public void UnmuteLoopingSounds()
-        {
-            SoundEventInstanceManager.GetInstance().UnmuteLoopingSoundEventInstances();
         }
 
         private IEnumerator PlayOneShot2DDelayedAsync(string soundEventKey, float delay)
