@@ -106,7 +106,15 @@ namespace Produktivkeller.SimpleAudioSolution.Emitter
         public void StopAndDestroy()
         {
             Stop();
-            Destroy(this);
+
+            if (_oneShot)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                Destroy(this); 
+            }
         }
 
         public void Play()
