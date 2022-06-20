@@ -47,7 +47,10 @@ namespace Produktivkeller.SimpleAudioSolution.Access
 
         private void LoadVolume()
         {
-            List<AudioMixerGroup> audioMixerGroups = _audioMixer.FindMatchingGroups(string.Empty).ToList();
+            List<AudioMixerGroup> audioMixerGroups = _audioMixer
+                                                     .FindMatchingGroups(string.Empty)
+                                                     .Where(a => !a.name.Contains("Intern") && a.name != "Reverb")
+                                                     .ToList();
 
             foreach (AudioMixerGroup audioMixerGroup in audioMixerGroups)
             {
