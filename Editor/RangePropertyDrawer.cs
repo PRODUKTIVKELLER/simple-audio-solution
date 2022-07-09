@@ -24,21 +24,20 @@ namespace Produktivkeller.SimpleAudioSolution.Editor.Editor
                 min = v.x;
                 max = v.y;
             }
+            
 
             float sliderWidth = EditorGUIUtility.currentViewWidth - 115 - EditorGUIUtility.labelWidth;
             float xOffset     = 2;
             
+            EditorGUI.BeginChangeCheck();
             EditorGUILayout.BeginHorizontal();
             EditorGUI.BeginProperty(rect, GUIContent.none, serializedProperty);
             EditorGUI.LabelField(rect, label);
             min = (float) Math.Round(EditorGUI.FloatField(new Rect(rect.x +  xOffset +EditorGUIUtility.labelWidth, rect.y, 40, rect.height), min), 2);
             
-            EditorGUI.BeginChangeCheck();
             EditorGUI.MinMaxSlider(new Rect(rect.x + xOffset + 45 + EditorGUIUtility.labelWidth, rect.y, sliderWidth, rect.height), ref min, ref max, minMaxSlider.min, minMaxSlider.max);
-
             
             max = (float) Math.Round(EditorGUI.FloatField(new Rect(rect.x + xOffset + 45 + sliderWidth + 5 + EditorGUIUtility.labelWidth, rect.y, 40, rect.height), max), 2);
-            
             
             if (EditorGUI.EndChangeCheck())
             {
@@ -52,6 +51,7 @@ namespace Produktivkeller.SimpleAudioSolution.Editor.Editor
                     y.floatValue = (float) Math.Round(max, 2);
                 }
             }
+            
             EditorGUI.EndProperty();
             EditorGUILayout.EndHorizontal();
         }
