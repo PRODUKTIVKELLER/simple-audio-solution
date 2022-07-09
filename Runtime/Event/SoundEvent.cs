@@ -22,19 +22,7 @@ namespace Produktivkeller.SimpleAudioSolution.Event
         
         [HideInInspector]
         public string key;
-        
-        [HideInInspector]
-        public float minVolume = 1f;
-
-        [HideInInspector]
-        public float maxVolume = 1f;
-
-        [HideInInspector]
-        public float minPitch = 1f;
-
-        [HideInInspector]
-        public float maxPitch = 1f;
-
+  
         [HideInInspector]
         public bool spatialize;
 
@@ -61,10 +49,6 @@ namespace Produktivkeller.SimpleAudioSolution.Event
         
         public MultiSoundEventPlaymode multiSoundEventPlaymode = MultiSoundEventPlaymode.Random;
         
-        public float minDelay;
-        
-        public float maxDelay;
-        
         public bool ignoreFirstDelay;
 
         [Header("3D Settings")]
@@ -72,11 +56,7 @@ namespace Produktivkeller.SimpleAudioSolution.Event
 
         [Range(0, 360)]
         public float spread;
-        
-        public float minDistance = 1f;
-        
-        public float maxDistance = 500f;
-        
+
         [MinMaxSlider(0, 500)]
         public Vector2 distance = new Vector2(1, 500);
         

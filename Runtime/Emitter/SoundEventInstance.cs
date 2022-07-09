@@ -58,8 +58,8 @@ namespace Produktivkeller.SimpleAudioSolution.Emitter
             _audioSource.playOnAwake           = false;
             _audioSource.dopplerLevel          = _soundEvent.dopplerLevel;
             _audioSource.spread                = _soundEvent.spread;
-            _audioSource.minDistance           = _soundEvent.minDistance;
-            _audioSource.maxDistance           = _soundEvent.maxDistance;
+            _audioSource.minDistance           = _soundEvent.distance.x;
+            _audioSource.maxDistance           = _soundEvent.distance.y;
 
             switch (_soundEvent.volumeRolloff)
             {
@@ -88,12 +88,12 @@ namespace Produktivkeller.SimpleAudioSolution.Emitter
 
         private void SetAndRandomizeVolume()
         {
-            _audioSource.volume = Random.Range(_soundEvent.minVolume, _soundEvent.maxVolume);
+            _audioSource.volume = Random.Range(_soundEvent.volume.x, _soundEvent.volume.y);
         }
 
         private void SetAndRandomizePitch()
         {
-            _audioSource.pitch = Random.Range(_soundEvent.minPitch, _soundEvent.maxPitch);
+            _audioSource.pitch = Random.Range(_soundEvent.pitch.x, _soundEvent.pitch.y);
         }
 
         public void Stop()
@@ -140,7 +140,7 @@ namespace Produktivkeller.SimpleAudioSolution.Emitter
             }
             else
             {
-                _audioSource.PlayDelayed(Random.Range(_soundEvent.minDelay, _soundEvent.maxDelay));
+                _audioSource.PlayDelayed(Random.Range(_soundEvent.delay.x, _soundEvent.delay.y));
             }
 
             _stopTime   = 0;

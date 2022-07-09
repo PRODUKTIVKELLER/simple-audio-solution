@@ -72,7 +72,7 @@ namespace Produktivkeller.SimpleAudioSolution.Emitter
                     float duration = fadeInDurationOverride != -1 ? fadeInDurationOverride : fadeInTime;
 
                     _soundEventInstances[i].Play(_soundEvent.audioClips[i]);
-                    StartCoroutine(Coroutines.AsynchronousLerpValue(SetVolume, _soundEventInstances[i].GetVolume(), _soundEvent.minVolume, duration));
+                    StartCoroutine(Coroutines.AsynchronousLerpValue(SetVolume, _soundEventInstances[i].GetVolume(), _soundEvent.volume.x, duration));
                 }
                 else
                 {

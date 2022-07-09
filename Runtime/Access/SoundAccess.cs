@@ -5,7 +5,6 @@ using System.Linq;
 using Produktivkeller.SimpleAudioSolution.Emitter;
 using Produktivkeller.SimpleAudioSolution.Event;
 using Produktivkeller.SimpleAudioSolution.Settings;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -178,20 +177,6 @@ namespace Produktivkeller.SimpleAudioSolution.Access
         {
             yield return new WaitForSeconds(delay);
             PlayOneShot2D(soundEventKey);
-        }
-
-        [ContextMenu("Run Migration 1")]
-        private void Migrate()
-        {
-            foreach (SoundEvent soundEvent in GetComponentsInChildren<SoundEvent>())
-            {
-                soundEvent.volume = new Vector2(soundEvent.minVolume, soundEvent.maxVolume);
-                soundEvent.pitch = new Vector2(soundEvent.minPitch, soundEvent.maxPitch);
-                soundEvent.delay = new Vector2(soundEvent.minDelay, soundEvent.maxDelay);
-                soundEvent.distance = new Vector2(soundEvent.minDistance, soundEvent.maxDistance);
-
-                EditorUtility.SetDirty(soundEvent);
-            }
         }
 
         #region Singleton
