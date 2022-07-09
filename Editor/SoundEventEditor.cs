@@ -1,4 +1,5 @@
-﻿using Produktivkeller.SimpleAudioSolution.Event;
+﻿using Produktivkeller.SimpleAudioSolution.Access;
+using Produktivkeller.SimpleAudioSolution.Event;
 using UnityEditor;
 using UnityEngine;
 
@@ -63,7 +64,7 @@ namespace Produktivkeller.SimpleAudioSolution.Editor.Editor
             // Required according to https://docs.unity3d.com/ScriptReference/Editor.html.
             serializedObject.Update();
             
-
+            EditorGUI.BeginChangeCheck();
             switch (_tabSelected)
             {
                 case 0:
@@ -75,6 +76,11 @@ namespace Produktivkeller.SimpleAudioSolution.Editor.Editor
             }
 
             serializedObject.ApplyModifiedProperties();
+            
+            if (EditorGUI.EndChangeCheck() && Application.isPlaying)
+            {
+                SoundAccess.GetInstance().SoundEventHasChangedInPlayMode((SoundEvent)target);
+            }
         }
 
         private void ShowGeneralPage()

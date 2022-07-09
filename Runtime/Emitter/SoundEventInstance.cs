@@ -49,7 +49,11 @@ namespace Produktivkeller.SimpleAudioSolution.Emitter
         {
             _soundEvent = soundEvent;
 
-            _audioSource                       = gameObject.AddComponent<AudioSource>();
+            if (!_audioSource)
+            {
+                _audioSource = gameObject.AddComponent<AudioSource>();
+            }
+            
             _audioSource.loop                  = _soundEvent.isLooping;
             _audioSource.outputAudioMixerGroup = _soundEvent.audioMixerGroup;
             _audioSource.spatialBlend          = _soundEvent.spatialBlend;
@@ -181,6 +185,11 @@ namespace Produktivkeller.SimpleAudioSolution.Emitter
         public void StopAfter(float waitTime)
         {
             _stopTime = Time.time + waitTime;
+        }
+
+        public void SoundEventHasChangedInPlayMode()
+        {
+            Initialize(_soundEvent);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Produktivkeller.SimpleAudioSolution.Access;
 using Produktivkeller.SimpleAudioSolution.Event;
 using UnityEngine;
 
@@ -18,7 +19,7 @@ namespace Produktivkeller.SimpleAudioSolution.Emitter
 
             return _soundEventInstances[key];
         }
-        
+
         public SoundEventInstance CreateSoundEventInstance(GameObject gameObject, SoundEvent soundEvent)
         {
             SoundEventInstance soundEventInstance = gameObject.AddComponent<SoundEventInstance>();
@@ -80,7 +81,7 @@ namespace Produktivkeller.SimpleAudioSolution.Emitter
             }
 
             List<SoundEventInstance> instances = GetInstances(soundEvent.key);
-            
+
             return instances.Count(i => i.IsPlaying()) < soundEvent.maxInstances;
         }
 
@@ -96,7 +97,7 @@ namespace Produktivkeller.SimpleAudioSolution.Emitter
 
         private SoundEventInstanceManager()
         {
-            _soundEventInstances             = new Dictionary<string, List<SoundEventInstance>>();
+            _soundEventInstances = new Dictionary<string, List<SoundEventInstance>>();
         }
 
         public static SoundEventInstanceManager GetInstance()
@@ -110,5 +111,13 @@ namespace Produktivkeller.SimpleAudioSolution.Emitter
         }
 
         #endregion
+
+        public void UpdateSoundEventInstancesInPlayMode(string key)
+        {
+            foreach (SoundEventInstance soundEventInstance in GetInstances(key))
+            {
+                soundEventInstance.SoundEventHasChangedInPlayMode();
+            }
+        }
     }
 }

@@ -111,11 +111,46 @@ namespace Produktivkeller.SimpleAudioSolution.Access
             }
         }
 
+        private string SoundEventToPath(SoundEvent soundEvent, Transform current, string path)
+        {
+            bool isRoot = current.GetComponent<SoundAccess>() != null;
+            
+            if (!isRoot)
+            {
+                path += "/" + current.name;
+
+                SoundEvent currentSoundEvent = current.GetComponent<SoundEvent>();
+                
+                if (currentSoundEvent)
+                {
+                    if (currentSoundEvent == soundEvent)
+                    {
+                        return path;
+                    }
+
+                    return null;
+                }
+            }
+
+            foreach (Transform child in current)
+            {
+                string childPath = SoundEventToPath(soundEvent, child, path);
+
+                if (childPath != null)
+                {
+                    return childPath;
+                }
+            }
+
+            return null;
+        }
+
         public SoundEvent RetrieveSoundEvent(string key)
         {
             if (!_soundEvents.ContainsKey(key))
             {
                 Debug.LogError("SoundEvent ID '" + key + "' not found.");
+                return null;
             }
 
             SoundEvent soundEvent = _soundEvents[key];
@@ -177,6 +212,12 @@ namespace Produktivkeller.SimpleAudioSolution.Access
         {
             yield return new WaitForSeconds(delay);
             PlayOneShot2D(soundEventKey);
+        }
+
+        public void SoundEventHasChangedInPlayMode(SoundEvent soundEvent)
+        {
+            string key = SoundEventToPath(soundEvent, transform, "");
+            SoundEventInstanceManager.GetInstance().UpdateSoundEventInstancesInPlayMode(key);
         }
 
         #region Singleton

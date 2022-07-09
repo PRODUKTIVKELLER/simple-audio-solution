@@ -23,6 +23,11 @@ namespace Produktivkeller.SimpleAudioSolution.Emitter
         {
             SoundEvent soundEvent = SoundAccess.GetInstance().RetrieveSoundEvent(key);
 
+            if (soundEvent == null)
+            {
+                return;
+            }
+
             RemoveOldEventInstanceIfKeyHasChanged();
 
             if (!SoundEventInstanceManager.GetInstance().IsAllowedToPlay(soundEvent))
