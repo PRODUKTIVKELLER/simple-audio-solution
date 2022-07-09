@@ -8,24 +8,28 @@ namespace Produktivkeller.SimpleAudioSolution.Editor.Editor
     [CustomEditor(typeof(SoundEvent))]
     public class SoundEventEditor : UnityEditor.Editor
     {
-        private SerializedProperty _volume;
-        private SerializedProperty _pitch;
-        private SerializedProperty _delay;
-        private SerializedProperty _spatialize;
-        private SerializedProperty _spatialBlend;
-        private SerializedProperty _maxInstances;
-        private SerializedProperty _stealingMode;
-        private SerializedProperty _isLooping;
-        private SerializedProperty _priority;
-        private SerializedProperty _audioMixerGroup;
-        private SerializedProperty _audioClips;
-        private SerializedProperty _multiSoundEventPlaymode;
-        private SerializedProperty _ignoreFirstDelay;
-        private SerializedProperty _dopplerLevel;
-        private SerializedProperty _spread;
-        private SerializedProperty _distance;
-        private SerializedProperty _volumeRolloff;
-        private SerializedProperty _rolloffCurve;
+        private readonly string[]           _tabs = { "General", "Advanced" };
+        
+        private          SerializedProperty _volume;
+        private          SerializedProperty _pitch;
+        private          SerializedProperty _delay;
+        private          SerializedProperty _spatialize;
+        private          SerializedProperty _spatialBlend;
+        private          SerializedProperty _maxInstances;
+        private          SerializedProperty _stealingMode;
+        private          SerializedProperty _isLooping;
+        private          SerializedProperty _priority;
+        private          SerializedProperty _audioMixerGroup;
+        private          SerializedProperty _audioClips;
+        private          SerializedProperty _multiSoundEventPlaymode;
+        private          SerializedProperty _ignoreFirstDelay;
+        private          SerializedProperty _dopplerLevel;
+        private          SerializedProperty _spread;
+        private          SerializedProperty _distance;
+        private          SerializedProperty _volumeRolloff;
+        private          SerializedProperty _rolloffCurve;
+        private          int                _tabSelected;
+
 
         public void OnEnable()
         {
@@ -51,48 +55,71 @@ namespace Produktivkeller.SimpleAudioSolution.Editor.Editor
 
         public override void OnInspectorGUI()
         {
+            EditorGUILayout.BeginVertical();
+            _tabSelected = GUILayout.Toolbar(_tabSelected, _tabs);
+            EditorGUILayout.EndVertical();
+            EditorGUILayout.Space();
+
             // Required according to https://docs.unity3d.com/ScriptReference/Editor.html.
             serializedObject.Update();
+            
 
+            switch (_tabSelected)
+            {
+                case 0:
+                    ShowGeneralPage();
+                    break;
+                case 1:
+                    ShowAdvancedPage();
+                    break;
+            }
+
+            serializedObject.ApplyModifiedProperties();
+        }
+
+        private void ShowGeneralPage()
+        {
             PropertyField(_volume);
             PropertyField(_pitch);
-            PropertyField(_delay);
-            PropertyField(_spatialize);
+            PropertyField(_isLooping);
+            
+            if (_isLooping.boolValue)
+            {
+                PropertyField(_ignoreFirstDelay);
+            }
+            
             PropertyField(_spatialBlend, "Spatial Blend (2D = 0, 3D = 1)");
             PropertyField(_maxInstances);
             PropertyField(_stealingMode);
-            PropertyField(_isLooping);
-            PropertyField(_priority, "Priority (0 = High Priority)");
-            PropertyField(_audioMixerGroup);
             PropertyField(_audioClips);
-            
 
             if (_audioClips.arraySize > 1)
             {
                 PropertyField(_multiSoundEventPlaymode, "Playmode");
-            
-                if (_isLooping.boolValue)
-                {
-                    PropertyField(_ignoreFirstDelay);
-                }
             }
-            
+
             if (_spatialBlend.floatValue != 0)
             {
                 PropertyField(_dopplerLevel);
                 PropertyField(_spread);
                 PropertyField(_distance);
                 PropertyField(_volumeRolloff);
-            
-                if (_volumeRolloff.enumValueIndex == (int) VolumeRolloff.Custom)
+
+                if (_volumeRolloff.enumValueIndex == (int)VolumeRolloff.Custom)
                 {
                     PropertyField(_rolloffCurve);
                 }
             }
-
-            serializedObject.ApplyModifiedProperties();
         }
-
+        
+        private void ShowAdvancedPage()
+        {
+            PropertyField(_delay);
+            PropertyField(_priority, "Priority (0 = High Priority)");
+            PropertyField(_audioMixerGroup);
+            PropertyField(_spatialize);
+        }
+        
         private void PropertyField(SerializedProperty serializedProperty, string label = null)
         {
             if (label != null)

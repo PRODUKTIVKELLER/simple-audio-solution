@@ -67,6 +67,7 @@ namespace Produktivkeller.SimpleAudioSolution.Event
         
         public bool ignoreFirstDelay;
 
+        [Header("3D Settings")]
         public float dopplerLevel;
 
         [Range(0, 360)]
