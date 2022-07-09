@@ -2,6 +2,8 @@
 {
     public enum VolumeRolloff
     {
-        Logarithmic, Linear, Custom
+        Logarithmic = 0, 
+        Linear = 1, 
+        Custom = 2
     }
 }

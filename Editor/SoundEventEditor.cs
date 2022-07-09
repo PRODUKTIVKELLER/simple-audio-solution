@@ -4,70 +4,104 @@ using UnityEngine;
 
 namespace Produktivkeller.SimpleAudioSolution.Editor.Editor
 {
+    [CanEditMultipleObjects]
     [CustomEditor(typeof(SoundEvent))]
     public class SoundEventEditor : UnityEditor.Editor
     {
-        private float _randomVolume;
-
-        private SoundEvent       _soundEvent;
-        private SerializedObject _serializedObject;
+        private SerializedProperty _volume;
+        private SerializedProperty _pitch;
+        private SerializedProperty _delay;
+        private SerializedProperty _spatialize;
+        private SerializedProperty _spatialBlend;
+        private SerializedProperty _maxInstances;
+        private SerializedProperty _stealingMode;
+        private SerializedProperty _isLooping;
+        private SerializedProperty _priority;
+        private SerializedProperty _audioMixerGroup;
+        private SerializedProperty _audioClips;
+        private SerializedProperty _multiSoundEventPlaymode;
+        private SerializedProperty _ignoreFirstDelay;
+        private SerializedProperty _dopplerLevel;
+        private SerializedProperty _spread;
+        private SerializedProperty _distance;
+        private SerializedProperty _volumeRolloff;
+        private SerializedProperty _rolloffCurve;
 
         public void OnEnable()
         {
-            _soundEvent = (SoundEvent)target;
+            _volume                  = serializedObject.FindProperty("volume");
+            _pitch                   = serializedObject.FindProperty("pitch");
+            _delay                   = serializedObject.FindProperty("delay");
+            _spatialize              = serializedObject.FindProperty("spatialize");
+            _spatialBlend            = serializedObject.FindProperty("spatialBlend");
+            _maxInstances            = serializedObject.FindProperty("maxInstances");
+            _stealingMode            = serializedObject.FindProperty("stealingMode");
+            _isLooping               = serializedObject.FindProperty("isLooping");
+            _priority                = serializedObject.FindProperty("priority");
+            _audioMixerGroup         = serializedObject.FindProperty("audioMixerGroup");
+            _audioClips              = serializedObject.FindProperty("audioClips");
+            _multiSoundEventPlaymode = serializedObject.FindProperty("multiSoundEventPlaymode");
+            _ignoreFirstDelay        = serializedObject.FindProperty("ignoreFirstDelay");
+            _dopplerLevel            = serializedObject.FindProperty("dopplerLevel");
+            _spread                  = serializedObject.FindProperty("spread");
+            _distance                = serializedObject.FindProperty("distance");
+            _volumeRolloff           = serializedObject.FindProperty("volumeRolloff");
+            _rolloffCurve            = serializedObject.FindProperty("rolloffCurve");
         }
 
         public override void OnInspectorGUI()
         {
-            _serializedObject = new SerializedObject(_soundEvent);
+            // Required according to https://docs.unity3d.com/ScriptReference/Editor.html.
+            serializedObject.Update();
 
-            PropertyField("volume");
-            PropertyField("pitch");
-            PropertyField("delay");
-            PropertyField("spatialize");
-            PropertyField("spatialBlend", "Spatial Blend (2D = 0, 3D = 1)");
-            PropertyField("maxInstances");
-            PropertyField("stealingMode");
-            PropertyField("isLooping");
-            PropertyField("priority", "Priority (0 = High Priority)");
-            PropertyField("audioMixerGroup");
-            PropertyField("audioClips");
+            PropertyField(_volume);
+            PropertyField(_pitch);
+            PropertyField(_delay);
+            PropertyField(_spatialize);
+            PropertyField(_spatialBlend, "Spatial Blend (2D = 0, 3D = 1)");
+            PropertyField(_maxInstances);
+            PropertyField(_stealingMode);
+            PropertyField(_isLooping);
+            PropertyField(_priority, "Priority (0 = High Priority)");
+            PropertyField(_audioMixerGroup);
+            PropertyField(_audioClips);
+            
 
-            if (_soundEvent.audioClips.Count > 1)
+            if (_audioClips.arraySize > 1)
             {
-                PropertyField("multiSoundEventPlaymode", "Playmode");
-
-                if (_soundEvent.isLooping)
+                PropertyField(_multiSoundEventPlaymode, "Playmode");
+            
+                if (_isLooping.boolValue)
                 {
-                    PropertyField("ignoreFirstDelay");
+                    PropertyField(_ignoreFirstDelay);
+                }
+            }
+            
+            if (_spatialBlend.floatValue != 0)
+            {
+                PropertyField(_dopplerLevel);
+                PropertyField(_spread);
+                PropertyField(_distance);
+                PropertyField(_volumeRolloff);
+            
+                if (_volumeRolloff.enumValueIndex == (int) VolumeRolloff.Custom)
+                {
+                    PropertyField(_rolloffCurve);
                 }
             }
 
-            if (_soundEvent.spatialBlend != 0)
-            {
-                PropertyField("dopplerLevel");
-                PropertyField("spread");
-                PropertyField("distance");
-                PropertyField("volumeRolloff");
-
-                if (_soundEvent.volumeRolloff == VolumeRolloff.Custom)
-                {
-                    PropertyField("rolloffCurve");
-                }
-            }
-
-            _serializedObject.ApplyModifiedProperties();
+            serializedObject.ApplyModifiedProperties();
         }
 
-        private void PropertyField(string propertyName, string label = null)
+        private void PropertyField(SerializedProperty serializedProperty, string label = null)
         {
             if (label != null)
             {
-                EditorGUILayout.PropertyField(_serializedObject.FindProperty(propertyName), new GUIContent(label), true);
+                EditorGUILayout.PropertyField(serializedProperty, new GUIContent(label), true);
                 return;
             }
 
-            EditorGUILayout.PropertyField(_serializedObject.FindProperty(propertyName), true);
+            EditorGUILayout.PropertyField(serializedProperty, true);
         }
     }
 }
