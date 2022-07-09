@@ -1,5 +1,4 @@
-﻿using System;
-using Produktivkeller.SimpleAudioSolution.Event;
+﻿using Produktivkeller.SimpleAudioSolution.Event;
 using UnityEditor;
 using UnityEngine;
 
@@ -10,146 +9,65 @@ namespace Produktivkeller.SimpleAudioSolution.Editor.Editor
     {
         private float _randomVolume;
 
-        private SoundEvent _soundEvent;
-
+        private SoundEvent       _soundEvent;
+        private SerializedObject _serializedObject;
 
         public void OnEnable()
         {
-            _soundEvent = (SoundEvent) target;
+            _soundEvent = (SoundEvent)target;
         }
 
         public override void OnInspectorGUI()
         {
-            MinMaxSlider("Volume", ref _soundEvent.minVolume, ref _soundEvent.maxVolume);
-            MinMaxSlider("Pitch",  ref _soundEvent.minPitch,  ref _soundEvent.maxPitch, -3, 3);
-            MinMaxSlider("Delay",  ref _soundEvent.minDelay,  ref _soundEvent.maxDelay, 0f, 30f);
+            _serializedObject = new SerializedObject(_soundEvent);
 
-            Checkbox("Spatialize", ref _soundEvent.spatialize);
-            FloatSlider("Spatial Blend (2D = 0, 3D = 1)", ref _soundEvent.spatialBlend);
-            IntSlider("Max Instances", ref _soundEvent.maxInstances, 1, 1000);
-            EnumSelection("Stealing Mode", ref _soundEvent.stealingMode);
-
-            Checkbox("Is Looping", ref _soundEvent.isLooping);
-            Checkbox("Reflect",    ref _soundEvent.reflect);
-
-            DrawDefaultInspector();
+            PropertyField("volume");
+            PropertyField("pitch");
+            PropertyField("delay");
+            PropertyField("spatialize");
+            PropertyField("spatialBlend", "Spatial Blend (2D = 0, 3D = 1)");
+            PropertyField("maxInstances");
+            PropertyField("stealingMode");
+            PropertyField("isLooping");
+            PropertyField("priority", "Priority (0 = High Priority)");
+            PropertyField("audioMixerGroup");
+            PropertyField("audioClips");
 
             if (_soundEvent.audioClips.Count > 1)
             {
-                EnumSelection("Playmode", ref _soundEvent.multiSoundEventPlaymode);
+                PropertyField("multiSoundEventPlaymode", "Playmode");
 
                 if (_soundEvent.isLooping)
                 {
-                    Checkbox("Ignore First Delay", ref _soundEvent.ignoreFirstDelay);
+                    PropertyField("ignoreFirstDelay");
                 }
             }
 
-            if (_soundEvent.spatialBlend == 0)
+            if (_soundEvent.spatialBlend != 0)
             {
+                PropertyField("dopplerLevel");
+                PropertyField("spread");
+                PropertyField("distance");
+                PropertyField("volumeRolloff");
+
+                if (_soundEvent.volumeRolloff == VolumeRolloff.Custom)
+                {
+                    PropertyField("rolloffCurve");
+                }
+            }
+
+            _serializedObject.ApplyModifiedProperties();
+        }
+
+        private void PropertyField(string propertyName, string label = null)
+        {
+            if (label != null)
+            {
+                EditorGUILayout.PropertyField(_serializedObject.FindProperty(propertyName), new GUIContent(label), true);
                 return;
             }
 
-            FloatSlider("Doppler Level", ref _soundEvent.dopplerLevel);
-            FloatSlider("Spread",        ref _soundEvent.spread);
-            MinMaxSlider("Distance", ref _soundEvent.minDistance, ref _soundEvent.maxDistance, 0, 500);
-            EnumSelection("Volume Rolloff", ref _soundEvent.volumeRolloff);
-
-            if (_soundEvent.volumeRolloff == VolumeRolloff.Custom)
-            {
-                AnimationCurve("Rolloff Curve", ref _soundEvent.rolloffCurve);
-            }
-        }
-
-        private void Checkbox(string label, ref bool value)
-        {
-            bool oldValue = value;
-
-            EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.LabelField(label);
-            value = EditorGUILayout.Toggle(value);
-            EditorGUILayout.EndHorizontal();
-
-            if (oldValue != value)
-            {
-                EditorUtility.SetDirty(_soundEvent);
-            }
-        }
-
-        private void EnumSelection<T>(string label, ref T value) where T : Enum
-        {
-            T oldValue = value;
-
-            EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.LabelField(label);
-            value = (T) EditorGUILayout.EnumPopup(value);
-            EditorGUILayout.EndHorizontal();
-
-            if (oldValue.CompareTo(value) != 0)
-            {
-                EditorUtility.SetDirty(_soundEvent);
-            }
-        }
-
-        private void IntSlider(string label, ref int value, int minLimit = 0, int maxLimit = 1)
-        {
-            int oldValue = value;
-
-            EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.LabelField(label);
-            value = EditorGUILayout.IntSlider(value, minLimit, maxLimit);
-            EditorGUILayout.EndHorizontal();
-
-            if (oldValue != value)
-            {
-                EditorUtility.SetDirty(_soundEvent);
-            }
-        }
-
-        private void FloatSlider(string label, ref float value, float minLimit = 0, float maxLimit = 1)
-        {
-            float oldValue = value;
-
-            EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.LabelField(label);
-            value = (float) Math.Round(EditorGUILayout.Slider(value, minLimit, maxLimit), 2);
-            EditorGUILayout.EndHorizontal();
-
-            if (oldValue != value)
-            {
-                EditorUtility.SetDirty(_soundEvent);
-            }
-        }
-
-        private void MinMaxSlider(string label, ref float min, ref float max, float minLimit = 0,
-                                  float  maxLimit = 1)
-        {
-            float oldMin = min;
-            float oldMax = max;
-
-            EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.LabelField(label);
-            min = (float) Math.Round(EditorGUILayout.FloatField(min, GUILayout.Width(40.0f)), 2);
-            EditorGUILayout.MinMaxSlider(ref min, ref max, minLimit, maxLimit);
-            max = (float) Math.Round(EditorGUILayout.FloatField(max, GUILayout.Width(40.0f)), 2);
-            EditorGUILayout.EndHorizontal();
-
-            if (oldMin != min || oldMax != max)
-            {
-                EditorUtility.SetDirty(_soundEvent);
-            }
-        }
-
-        private void AnimationCurve(string label, ref AnimationCurve animationCurve)
-        {
-            EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.LabelField(label);
-            animationCurve = EditorGUILayout.CurveField(animationCurve);
-            EditorGUILayout.EndHorizontal();
-
-            if (GUILayout.Button("Mark rolloff as dirty"))
-            {
-                EditorUtility.SetDirty(_soundEvent);
-            }
+            EditorGUILayout.PropertyField(_serializedObject.FindProperty(propertyName), true);
         }
     }
 }

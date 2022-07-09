@@ -9,8 +9,20 @@ namespace Produktivkeller.SimpleAudioSolution.Event
     public class SoundEvent : MonoBehaviour
     {
         [HideInInspector]
+        [MinMaxSlider(0, 1)]
+        public Vector2 volume = new Vector2(1, 1);
+        
+        [HideInInspector]
+        [MinMaxSlider(-3, 3)]
+        public Vector2 pitch = new Vector2(1, 1);
+        
+        [HideInInspector]
+        [MinMaxSlider(0, 30)]
+        public Vector2 delay = new Vector2(0, 0);
+        
+        [HideInInspector]
         public string key;
-
+        
         [HideInInspector]
         public float minVolume = 1f;
 
@@ -27,9 +39,11 @@ namespace Produktivkeller.SimpleAudioSolution.Event
         public bool spatialize;
 
         [HideInInspector]
+        [Range(0, 1)]
         public float spatialBlend = 1f;
 
         [HideInInspector]
+        [Range(1, 1000)]
         public int maxInstances = 1000;
 
         [HideInInspector]
@@ -38,45 +52,35 @@ namespace Produktivkeller.SimpleAudioSolution.Event
         [HideInInspector]
         public bool isLooping;
 
-        [HideInInspector]
-        public bool reflect;
-
+        [Range(0, 255)]
         public int priority = 128;
 
-        [Header("Audio Mixer Group")]
         public AudioMixerGroup audioMixerGroup;
 
-        [Header("Audio Clips")]
         public List<AudioClip> audioClips;
-
-        [HideInInspector]
+        
         public MultiSoundEventPlaymode multiSoundEventPlaymode = MultiSoundEventPlaymode.Random;
-
-        [HideInInspector]
-        public float minDelay = 0f;
-
-        [HideInInspector]
-        public float maxDelay = 0f;
-
-        [HideInInspector]
+        
+        public float minDelay;
+        
+        public float maxDelay;
+        
         public bool ignoreFirstDelay;
 
-        [HideInInspector]
         public float dopplerLevel;
 
-        [HideInInspector]
+        [Range(0, 360)]
         public float spread;
-
-        [HideInInspector]
+        
         public float minDistance = 1f;
-
-        [HideInInspector]
+        
         public float maxDistance = 500f;
-
-        [HideInInspector]
+        
+        [MinMaxSlider(0, 500)]
+        public Vector2 distance = new Vector2(1, 500);
+        
         public VolumeRolloff volumeRolloff = VolumeRolloff.Logarithmic;
-
-        [HideInInspector]
+        
         public AnimationCurve rolloffCurve;
 
         private List<AudioClip> _excludedAudioClips;
