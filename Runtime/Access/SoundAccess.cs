@@ -30,12 +30,15 @@ namespace Produktivkeller.SimpleAudioSolution.Access
 
         private void LoadAudioMixer()
         {
-            _audioMixer = Resources.Load("Audio Mixer") as AudioMixer;
+            AudioMixer[] audioMixers = Resources.LoadAll<AudioMixer>("");
 
-            if (!_audioMixer)
+            if (audioMixers.Length == 0)
             {
                 Debug.LogError("No AudioMixer was found.");
+                return;
             }
+            
+            _audioMixer = audioMixers[0];
         }
 
         private void LoadSoundEvents()

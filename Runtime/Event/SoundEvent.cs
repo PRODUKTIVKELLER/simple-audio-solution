@@ -21,6 +21,10 @@ namespace Produktivkeller.SimpleAudioSolution.Event
         public Vector2 delay = new Vector2(0, 0);
         
         [HideInInspector]
+        [Range(-1, 1)]
+        public float stereoPan;
+        
+        [HideInInspector]
         public string key;
   
         [HideInInspector]

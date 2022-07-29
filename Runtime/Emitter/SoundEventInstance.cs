@@ -53,7 +53,7 @@ namespace Produktivkeller.SimpleAudioSolution.Emitter
             {
                 _audioSource = gameObject.AddComponent<AudioSource>();
             }
-            
+
             _audioSource.loop                  = _soundEvent.isLooping;
             _audioSource.outputAudioMixerGroup = _soundEvent.audioMixerGroup;
             _audioSource.spatialBlend          = _soundEvent.spatialBlend;
@@ -64,6 +64,7 @@ namespace Produktivkeller.SimpleAudioSolution.Emitter
             _audioSource.spread                = _soundEvent.spread;
             _audioSource.minDistance           = _soundEvent.distance.x;
             _audioSource.maxDistance           = _soundEvent.distance.y;
+            _audioSource.panStereo             = _soundEvent.stereoPan;
 
             switch (_soundEvent.volumeRolloff)
             {
@@ -117,7 +118,7 @@ namespace Produktivkeller.SimpleAudioSolution.Emitter
             }
             else
             {
-                Destroy(this); 
+                Destroy(this);
             }
         }
 

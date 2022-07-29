@@ -29,6 +29,7 @@ namespace Produktivkeller.SimpleAudioSolution.Editor.Editor
         private          SerializedProperty _distance;
         private          SerializedProperty _volumeRolloff;
         private          SerializedProperty _rolloffCurve;
+        private          SerializedProperty _stereoPan;
         private          int                _tabSelected;
 
 
@@ -52,6 +53,7 @@ namespace Produktivkeller.SimpleAudioSolution.Editor.Editor
             _distance                = serializedObject.FindProperty("distance");
             _volumeRolloff           = serializedObject.FindProperty("volumeRolloff");
             _rolloffCurve            = serializedObject.FindProperty("rolloffCurve");
+            _stereoPan               = serializedObject.FindProperty("stereoPan");
         }
 
         public override void OnInspectorGUI()
@@ -124,6 +126,7 @@ namespace Produktivkeller.SimpleAudioSolution.Editor.Editor
             PropertyField(_priority, "Priority (0 = High Priority)");
             PropertyField(_audioMixerGroup);
             PropertyField(_spatialize);
+            PropertyField(_stereoPan);
         }
         
         private void PropertyField(SerializedProperty serializedProperty, string label = null)
