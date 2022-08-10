@@ -108,7 +108,14 @@ namespace Produktivkeller.SimpleAudioSolution.Event
                 }
             }
 
-            List<AudioClip> audioClipsForShuffle = audioClips.Except(_excludedAudioClips).ToList();
+            List<AudioClip> audioClipsForShuffle = new List<AudioClip>(audioClips);
+            
+            foreach (AudioClip excludedAudioClip in _excludedAudioClips)
+            {
+                audioClipsForShuffle.Remove(excludedAudioClip);
+            }
+            
+            
             AudioClip       shuffledAudioClip    = PickRandomClip(audioClipsForShuffle);
 
             _previousAudioClip = shuffledAudioClip;
@@ -119,7 +126,10 @@ namespace Produktivkeller.SimpleAudioSolution.Event
 
         private static AudioClip PickRandomClip(IReadOnlyList<AudioClip> clips)
         {
-            return clips[Random.Range(0, clips.Count)];
+            int clipsCount  = clips.Count;
+            int randomIndex = Random.Range(0, clipsCount);
+            
+            return clips[randomIndex];
         }
     }
 }
