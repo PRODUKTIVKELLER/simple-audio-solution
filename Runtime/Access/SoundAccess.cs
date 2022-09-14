@@ -188,10 +188,10 @@ namespace Produktivkeller.SimpleAudioSolution.Access
             AudioMixerGroupVolume.ApplyVolume(_audioMixer, parameter, valueBetween0And1);
         }
 
-        public SoundEventInstance PlayOneShot(string soundEventKey, Vector3 position)
+        public SoundEventInstance PlayOneShot(string soundEventKey, Vector3 position, bool destroyOnLoad)
         {
             SoundEventInstance soundEventInstance = SoundEventInstanceManager.GetInstance()
-                                                                             .CreateOneShotSoundEventInstance(RetrieveSoundEvent(soundEventKey), position);
+                                                                             .CreateOneShotSoundEventInstance(RetrieveSoundEvent(soundEventKey), position, destroyOnLoad);
 
             if (soundEventInstance)
             {
@@ -201,20 +201,20 @@ namespace Produktivkeller.SimpleAudioSolution.Access
             return soundEventInstance;
         }
 
-        public SoundEventInstance PlayOneShot2D(string soundEventKey)
+        public SoundEventInstance PlayOneShot2D(string soundEventKey, bool destroyOnLoad = true)
         {
-            return PlayOneShot(soundEventKey, Vector3.zero);
+            return PlayOneShot(soundEventKey, Vector3.zero, destroyOnLoad);
         }
 
-        public void PlayOneShot2DDelayed(string soundEventKey, float delay)
+        public void PlayOneShot2DDelayed(string soundEventKey, float delay, bool destroyOnLoad = true)
         {
-            StartCoroutine(PlayOneShot2DDelayedAsync(soundEventKey, delay));
+            StartCoroutine(PlayOneShot2DDelayedAsync(soundEventKey, delay, destroyOnLoad));
         }
 
-        private IEnumerator PlayOneShot2DDelayedAsync(string soundEventKey, float delay)
+        private IEnumerator PlayOneShot2DDelayedAsync(string soundEventKey, float delay, bool destroyOnLoad)
         {
             yield return new WaitForSeconds(delay);
-            PlayOneShot2D(soundEventKey);
+            PlayOneShot2D(soundEventKey, destroyOnLoad);
         }
 
         public void SoundEventHasChangedInPlayMode(SoundEvent soundEvent)

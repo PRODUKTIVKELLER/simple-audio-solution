@@ -36,7 +36,7 @@ namespace Produktivkeller.SimpleAudioSolution.Emitter
             return soundEventInstance;
         }
 
-        public SoundEventInstance CreateOneShotSoundEventInstance(SoundEvent soundEvent, Vector3 position)
+        public SoundEventInstance CreateOneShotSoundEventInstance(SoundEvent soundEvent, Vector3 position, bool destroyOnLoad)
         {
             if (!IsAllowedToPlay(soundEvent))
             {
@@ -45,6 +45,11 @@ namespace Produktivkeller.SimpleAudioSolution.Emitter
 
             GameObject oneShotGameObject = new GameObject("One Shot - " + soundEvent.key);
             oneShotGameObject.transform.position = position;
+
+            if (!destroyOnLoad)
+            {
+                Object.DontDestroyOnLoad(oneShotGameObject);
+            }
 
             SoundEventInstance soundEventInstance = CreateSoundEventInstance(oneShotGameObject, soundEvent);
             soundEventInstance.MarkAsOneShot();
