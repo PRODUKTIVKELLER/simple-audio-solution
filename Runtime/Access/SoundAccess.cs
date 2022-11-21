@@ -188,7 +188,7 @@ namespace Produktivkeller.SimpleAudioSolution.Access
             AudioMixerGroupVolume.ApplyVolume(_audioMixer, parameter, valueBetween0And1);
         }
 
-        public SoundEventInstance PlayOneShot(string soundEventKey, Vector3 position, bool destroyOnLoad)
+        public SoundEventInstance PlayOneShot(string soundEventKey, Vector3 position, bool destroyOnLoad = true)
         {
             SoundEventInstance soundEventInstance = SoundEventInstanceManager.GetInstance()
                                                                              .CreateOneShotSoundEventInstance(RetrieveSoundEvent(soundEventKey), position, destroyOnLoad);

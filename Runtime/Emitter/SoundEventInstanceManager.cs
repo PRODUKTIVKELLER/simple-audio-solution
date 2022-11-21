@@ -36,7 +36,7 @@ namespace Produktivkeller.SimpleAudioSolution.Emitter
             return soundEventInstance;
         }
 
-        public SoundEventInstance CreateOneShotSoundEventInstance(SoundEvent soundEvent, Vector3 position, bool destroyOnLoad)
+        public SoundEventInstance CreateOneShotSoundEventInstance(SoundEvent soundEvent, Vector3 position, bool destroyOnLoad = true)
         {
             if (!IsAllowedToPlay(soundEvent))
             {
