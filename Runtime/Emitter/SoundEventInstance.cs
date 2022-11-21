@@ -1,4 +1,5 @@
 ﻿using System;
+using Produktivkeller.SimpleAudioSolution.Configuration;
 using Produktivkeller.SimpleAudioSolution.Event;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -57,7 +58,7 @@ namespace Produktivkeller.SimpleAudioSolution.Emitter
             _audioSource.loop                  = _soundEvent.isLooping;
             _audioSource.outputAudioMixerGroup = _soundEvent.audioMixerGroup;
             _audioSource.spatialBlend          = _soundEvent.spatialBlend;
-            _audioSource.spatialize            = _soundEvent.spatialize;
+            _audioSource.spatialize            = _soundEvent.spatialize && !SoundSettings.IsSpatializeDisabled;
             _audioSource.priority              = _soundEvent.priority;
             _audioSource.playOnAwake           = false;
             _audioSource.dopplerLevel          = _soundEvent.dopplerLevel;
