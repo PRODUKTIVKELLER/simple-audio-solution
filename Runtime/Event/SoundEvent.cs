@@ -131,5 +131,20 @@ namespace Produktivkeller.SimpleAudioSolution.Event
             
             return clips[randomIndex];
         }
+        
+        [ContextMenu("Copy Path")]
+        public void CopyHierarchyPathToClipboard()
+        {
+            GameObject current = gameObject;
+            string     path    = "/" + current.name;
+
+            while (current.transform.parent != null && current.transform.parent.name != "Sound Access")
+            {
+                current = current.transform.parent.gameObject;
+                path    = "/" + current.name + path;
+            }
+
+            GUIUtility.systemCopyBuffer = path;
+        }
     }
 }
