@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Produktivkeller.SimpleAudioSolution.Emitter;
 using Produktivkeller.SimpleAudioSolution.Event;
+using Produktivkeller.SimpleAudioSolution.Persistence;
 using Produktivkeller.SimpleAudioSolution.Settings;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -12,13 +13,19 @@ namespace Produktivkeller.SimpleAudioSolution.Access
 {
     public class SoundAccess : MonoBehaviour
     {
-        private AudioMixer                     _audioMixer;
-        private Dictionary<string, SoundEvent> _soundEvents;
+        private AudioMixer                      _audioMixer;
+        private Dictionary<string, SoundEvent>  _soundEvents;
+        private ISimpleAudioSolutionPersistence _simpleAudioSolutionPersistence;
 
         private const string PERSISTENCE_KEY_VOLUME = "volume.";
 
         private void Initialize()
         {
+            if (_simpleAudioSolutionPersistence == null)
+            {
+                _simpleAudioSolutionPersistence = new SimpleAudioSolutionPersistence();
+            }
+            
             LoadAudioMixer();
             LoadSoundEvents();
         }
@@ -59,15 +66,15 @@ namespace Produktivkeller.SimpleAudioSolution.Access
             {
                 string persistenceKey = PERSISTENCE_KEY_VOLUME + audioMixerGroup.name;
 
-                if (!PlayerPrefs.HasKey(persistenceKey))
+                if (!_simpleAudioSolutionPersistence.HasKey(persistenceKey))
                 {
-                    PlayerPrefs.SetFloat(persistenceKey, AudioMixerGroupVolume.RetrieveVolume(_audioMixer, audioMixerGroup.name));
-                    PlayerPrefs.Save();
+                    _simpleAudioSolutionPersistence.SetFloat(persistenceKey, AudioMixerGroupVolume.RetrieveVolume(_audioMixer, audioMixerGroup.name));
+                    _simpleAudioSolutionPersistence.Save();
 
                     continue;
                 }
 
-                ApplyVolume(audioMixerGroup.name, PlayerPrefs.GetFloat(persistenceKey));
+                ApplyVolume(audioMixerGroup.name, _simpleAudioSolutionPersistence.GetFloat(persistenceKey));
             }
         }
 
@@ -166,14 +173,14 @@ namespace Produktivkeller.SimpleAudioSolution.Access
         {
             string persistenceKey = PERSISTENCE_KEY_VOLUME + parameter;
 
-            if (PlayerPrefs.HasKey(persistenceKey))
+            if (_simpleAudioSolutionPersistence.HasKey(persistenceKey))
             {
-                return PlayerPrefs.GetFloat(persistenceKey);
+                return _simpleAudioSolutionPersistence.GetFloat(persistenceKey);
             }
 
             float volume = AudioMixerGroupVolume.RetrieveVolume(_audioMixer, parameter);
-            PlayerPrefs.SetFloat(persistenceKey, volume);
-            PlayerPrefs.Save();
+            _simpleAudioSolutionPersistence.SetFloat(persistenceKey, volume);
+            _simpleAudioSolutionPersistence.Save();
 
             return volume;
         }
@@ -182,8 +189,8 @@ namespace Produktivkeller.SimpleAudioSolution.Access
         {
             string persistenceKey = PERSISTENCE_KEY_VOLUME + parameter;
 
-            PlayerPrefs.SetFloat(persistenceKey, valueBetween0And1);
-            PlayerPrefs.Save();
+            _simpleAudioSolutionPersistence.SetFloat(persistenceKey, valueBetween0And1);
+            _simpleAudioSolutionPersistence.Save();
 
             AudioMixerGroupVolume.ApplyVolume(_audioMixer, parameter, valueBetween0And1);
         }
@@ -221,6 +228,11 @@ namespace Produktivkeller.SimpleAudioSolution.Access
         {
             string key = SoundEventToPath(soundEvent, transform, "");
             SoundEventInstanceManager.GetInstance().UpdateSoundEventInstancesInPlayMode(key);
+        }
+
+        public void UseCustomPersistence(ISimpleAudioSolutionPersistence simpleAudioSolutionPersistence)
+        {
+            _simpleAudioSolutionPersistence = simpleAudioSolutionPersistence;
         }
 
         #region Singleton
