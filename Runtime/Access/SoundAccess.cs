@@ -21,17 +21,10 @@ namespace Produktivkeller.SimpleAudioSolution.Access
 
         private void Initialize()
         {
-            if (_simpleAudioSolutionPersistence == null)
-            {
-                _simpleAudioSolutionPersistence = new SimpleAudioSolutionPersistence();
-            }
-            
+            _simpleAudioSolutionPersistence = GetComponent<ISimpleAudioSolutionPersistence>() ?? new SimpleAudioSolutionPersistence();
+
             LoadAudioMixer();
             LoadSoundEvents();
-        }
-
-        private void Start()
-        {
             LoadVolume();
         }
 
@@ -228,11 +221,6 @@ namespace Produktivkeller.SimpleAudioSolution.Access
         {
             string key = SoundEventToPath(soundEvent, transform, "");
             SoundEventInstanceManager.GetInstance().UpdateSoundEventInstancesInPlayMode(key);
-        }
-
-        public void UseCustomPersistence(ISimpleAudioSolutionPersistence simpleAudioSolutionPersistence)
-        {
-            _simpleAudioSolutionPersistence = simpleAudioSolutionPersistence;
         }
 
         #region Singleton
