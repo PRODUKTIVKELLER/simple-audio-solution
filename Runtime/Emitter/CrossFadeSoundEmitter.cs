@@ -40,14 +40,6 @@ namespace Produktivkeller.SimpleAudioSolution.Emitter
             }
         }
 
-        public void SetVolume(float volume)
-        {
-            foreach (SoundEventInstance soundEventInstance in _soundEventInstances)
-            {
-                soundEventInstance.SetVolume(volume);
-            }
-        }
-
         public void CrossFadeTo(Enum targetEnum, float fadeInDurationOverride = -1, float fadeOutDurationOverride = -1)
         {
             int targetIndex = (int)(object)targetEnum;
