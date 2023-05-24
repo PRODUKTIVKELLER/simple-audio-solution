@@ -71,7 +71,8 @@ namespace Produktivkeller.SimpleAudioSolution.Access
                     continue;
                 }
 
-                ApplyVolume(audioMixerGroup.name, _simpleAudioSolutionPersistence.GetFloat(persistenceKey));
+                float volume = Application.isBatchMode ? 0 : _simpleAudioSolutionPersistence.GetFloat(persistenceKey);
+                ApplyVolume(audioMixerGroup.name, volume);
             }
         }
 
