@@ -137,6 +137,22 @@ namespace Produktivkeller.SimpleAudioSolution.Emitter
                 _audioSource.loop = false;
             }
 
+            Play(audioClip);
+        }
+
+        internal void PlayCrossFade(AudioClip audioClip)
+        {
+            if (_audioSource.loop && _soundEvent.audioClips.Count > 1)
+            {
+                _audioSource.loop = true;
+            }
+
+            Play(audioClip);
+        }
+
+
+        private void Play(AudioClip audioClip)
+        {
             _audioSource.clip = audioClip;
 
             if (_isFirstPlayback && _soundEvent.ignoreFirstDelay)
@@ -152,6 +168,7 @@ namespace Produktivkeller.SimpleAudioSolution.Emitter
             _stopTime   = 0;
             _wasStopped = false;
         }
+
 
         public void MarkAsOneShot()
         {
