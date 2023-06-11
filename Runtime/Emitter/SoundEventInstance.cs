@@ -137,7 +137,7 @@ namespace Produktivkeller.SimpleAudioSolution.Emitter
                 _audioSource.loop = false;
             }
 
-            Play(audioClip);
+            PlayClip(audioClip);
         }
 
         internal void PlayCrossFade(AudioClip audioClip)
@@ -147,11 +147,10 @@ namespace Produktivkeller.SimpleAudioSolution.Emitter
                 _audioSource.loop = true;
             }
 
-            Play(audioClip);
+            PlayClip(audioClip);
         }
 
-
-        private void Play(AudioClip audioClip)
+        private void PlayClip(AudioClip audioClip)
         {
             _audioSource.clip = audioClip;
 
