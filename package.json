@@ -1,6 +1,6 @@
 {
     "name": "com.produktivkeller.simple-audio-solution",
-    "version": "0.2.7",
+    "version": "0.2.8",
     "displayName": "Simple Audio Solution",
     "description": "Simple Audio Solution is an abstraction for sounds in Unity to keep your audio nice and clean.",
     "documentationUrl": "https://github.com/PRODUKTIVKELLER/simple-audio-solution",

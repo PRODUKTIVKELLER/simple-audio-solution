@@ -14,6 +14,7 @@ namespace Produktivkeller.SimpleAudioSolution.Emitter
         private float       _stopTime;
         private bool        _wasStopped;
         private bool        _isFirstPlayback = true;
+        private AudioClip   _audioClipForCrossFade;
 
         private void Update()
         {
@@ -23,6 +24,12 @@ namespace Produktivkeller.SimpleAudioSolution.Emitter
             }
 
             bool hasEnded = !_wasStopped && !_audioSource.isPlaying;
+
+            if (hasEnded && _soundEvent.isLooping && _audioClipForCrossFade)
+            {
+                PlayCrossFade(_audioClipForCrossFade);
+                return;
+            }
 
             if (hasEnded && _soundEvent.isLooping && _soundEvent.audioClips.Count > 1)
             {
@@ -142,11 +149,7 @@ namespace Produktivkeller.SimpleAudioSolution.Emitter
 
         internal void PlayCrossFade(AudioClip audioClip)
         {
-            if (_audioSource.loop && _soundEvent.audioClips.Count > 1)
-            {
-                _audioSource.loop = true;
-            }
-
+            _audioClipForCrossFade = audioClip;
             PlayClip(audioClip);
         }
 
