@@ -13,6 +13,8 @@ namespace Produktivkeller.SimpleAudioSolution.Access
 {
     public class SoundAccess : MonoBehaviour
     {
+        [SerializeField]
+        private bool shouldDestroyOnLoad;
         private AudioMixer                      _audioMixer;
         private Dictionary<string, SoundEvent>  _soundEvents;
         private ISimpleAudioSolutionPersistence _simpleAudioSolutionPersistence;
@@ -241,8 +243,13 @@ namespace Produktivkeller.SimpleAudioSolution.Access
             else if (_instance == null)
             {
                 _instance = this;
-                transform.SetParent(null);
-                DontDestroyOnLoad(this);
+
+                if (!shouldDestroyOnLoad)
+                {
+                    transform.SetParent(null);
+                    DontDestroyOnLoad(this);
+                }
+
                 Initialize();
             }
         }
