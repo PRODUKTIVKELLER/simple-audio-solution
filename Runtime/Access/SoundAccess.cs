@@ -186,7 +186,12 @@ namespace Produktivkeller.SimpleAudioSolution.Access
             string persistenceKey = PERSISTENCE_KEY_VOLUME + parameter;
 
             _simpleAudioSolutionPersistence.SetFloat(persistenceKey, valueBetween0And1);
-            _simpleAudioSolutionPersistence.Save();
+
+            // Do not save instantly on PS4 as this will lead to lags while moving a slider.
+            if (Application.platform != RuntimePlatform.PS4)
+            {
+                _simpleAudioSolutionPersistence.Save();
+            }
 
             AudioMixerGroupVolume.ApplyVolume(_audioMixer, parameter, valueBetween0And1);
         }
