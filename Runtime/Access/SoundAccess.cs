@@ -178,11 +178,7 @@ namespace Produktivkeller.SimpleAudioSolution.Access
                 return _simpleAudioSolutionPersistence.GetFloat(persistenceKey);
             }
 
-            float volume = AudioMixerGroupVolume.RetrieveVolume(_audioMixer, parameter);
-            _simpleAudioSolutionPersistence.SetFloat(persistenceKey, volume);
-            _simpleAudioSolutionPersistence.Save();
-
-            return volume;
+            return AudioMixerGroupVolume.RetrieveVolume(_audioMixer, parameter);
         }
 
         public void ApplyVolume(String parameter, float valueBetween0And1)
